@@ -1,0 +1,158 @@
+@import "themes/colors.css";
+
+/* Global defaults */
+* {
+    all: unset;
+}
+
+* {
+   	font-family: JetBrainsMono Nerd Font Propo;
+    	font-weight: 900;
+    	font-size: 22px;
+    	background-color: transparent;
+}
+
+window#waybar {
+    	background-color: @bg;
+	border-radius: 0px;
+}
+/* Expand button */
+#custom-expand {
+    	color: @fg;
+    	margin-left: 22px;
+    	margin-right: 0px;
+}
+#custom-expand:hover {
+    	color: @fg2;
+}
+
+/* Power buttons */
+#custom-power,
+#custom-reboot,
+#custom-logout {
+   	color: @accent2;
+    	padding-left: 10px;
+    	padding-right: 10px;
+}
+#custom-power {
+    	padding-left: 5px;
+}
+#custom-logout {
+    	padding-right: 15px;
+}
+#custom-power:hover,
+#custom-reboot:hover,
+#custom-logout:hover {
+    	color: @fg2;
+}
+
+/* Tooltips */
+tooltip {
+    	background-color: rgba(0, 0, 0, 0.85);
+	border-radius: 10px;
+}
+
+tooltip label {
+	margin: 10;
+    	font-size: 16px;
+    	font-weight: 800;
+    	color: @fg;
+}
+
+/* General button style */
+button {
+    	border-radius: 30px;
+    	margin: 3px 3px;
+    	padding: 0;
+}
+button:hover {
+    	color: @bg;
+    	box-shadow: inset 0 -50px @bg;
+    	transition: 0s cubic-bezier(0, 0, 0, 0);
+}
+
+/* Workspaces */
+#workspaces {
+	background: linear-gradient(135deg, @grad1, @grad2);
+	border-radius: 30px;
+	margin: 8px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+#workspaces button {
+    	background-color: transparent;
+    	color: @bg;
+    	transition: 0.25s cubic-bezier(0.6, 0.8, 0.2, 2);
+    	padding: 0 10px;
+}
+#workspaces button.empty {
+    	background-color: transparent;
+    	color: @accent3;
+}
+#workspaces button:hover {
+ 	background-color: @bg;
+  	color: @fg2;
+ 	padding: 0 2px;
+    	min-width: 50px;
+}
+#workspaces button.focused,
+#workspaces button.active {
+	background: @bg;
+    	color: @fg;
+    	padding: 0 15px;
+    	min-width: 50px;
+}
+
+/* Module base style */
+#clock,
+#cpu,
+#memory,
+#temperature,
+#custom-updates,
+#network,
+#bluetooth,
+#custom-screenshare,
+#custom-barlock	{
+    	background-color: transparent;
+    	color: @accent1;
+    	padding: 5px;
+}
+
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover {
+    	color: @accent2;
+}
+
+#custom-updates:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-screenshare:hover,
+#custom-barlock:hover	{
+    	color: @fg;
+}
+
+/* Audio modules */
+#pulseaudio,
+#wireplumber {
+	background-color: transparent;
+    	color: @accent1;
+    	padding-right: 20px;
+	padding-left: 20px;
+}
+#pulseaudio:hover,
+#wireplumber:hover {
+    	color: @fg;
+}
+
+/* Lock button */
+#custom-lock {
+    	background-color: transparent;
+    	color: @fg;
+    	padding-left: 10px;
+    	padding-right: 22px;
+}
+#custom-lock:hover {
+    	color: @fg2;
+}

@@ -1,0 +1,27 @@
+#!/bin/bash
+set -o pipefail
+
+ICON=""
+
+updates="$(CheckUpdates -arch 2>/dev/null)"
+tooltip="$(CheckUpdates -arch -tooltip 2>/dev/null)"
+
+# Strip trailing newlines
+updates="${updates%$'\n'}"
+tooltip="${tooltip%$'\n'}"
+
+# Convert to ALL CAPS safely
+updates_upper=$(printf "%s" "$updates" | tr '[:lower:]' '[:upper:]')
+tooltip_upper=$(printf "%s" "$tooltip" | tr '[:lower:]' '[:upper:]')
+
+# If updates is "0", output empty text but keep proper JSON structure
+if [[ "$updates_upper" == "0" ]]; then
+    jq -cn --arg text "" --arg tooltip "$tooltip_upper" \
+       '{text: $text, tooltip: $tooltip}'
+    exit 0
+fi
+
+# Otherwise output icon + update count
+jq -cn --arg text "[ $ICON $updates_upper ]" --arg tooltip "$tooltip_upper" \
+   '{text: $text, tooltip: $tooltip}'
+

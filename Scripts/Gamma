@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+STEP=10
+MIN=10
+
+# Get current gamma and strip decimals
+CURRENT=$(hyprctl hyprsunset gamma | awk '{printf "%d\n", $NF}')
+
+# Safety fallback
+[[ -z "$CURRENT" || "$CURRENT" -lt 1 ]] && CURRENT=$MIN
+
+case "$1" in
+    up)
+        NEW=$((CURRENT + STEP))
+        hyprctl hyprsunset gamma "$NEW"
+        CURRENT=$NEW
+        ;;
+    down)
+        NEW=$((CURRENT - STEP))
+        (( NEW < MIN )) && NEW=$MIN
+        hyprctl hyprsunset gamma "$NEW"
+        CURRENT=$NEW
+        ;;
+esac
+
+# Waybar JSON output (no visible text)
+printf '{"text":"","tooltip":"[ GAMMA %d%% ]"}\n' "$CURRENT"
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+# Save as restart_waybar.sh and make executable
+
+STATE_FILE="$HOME/.config/waybar/Bar_Visible"
+
+# Remove state file if it exists
+if [ -f "$STATE_FILE" ]; then
+    rm "$STATE_FILE"
+fi
+
+# Kill all Waybar processes
+pkill -x waybar
+
+# Give a tiny delay to ensure it exits fully
+sleep 0.2
+
+# Relaunch Waybar silently in the background
+nohup waybar >/dev/null 2>&1 &
+

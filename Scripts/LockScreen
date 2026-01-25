@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Try to get Discord's PID
+pid=$(hyprctl clients -j | jq -r '.[] | select((.class|ascii_downcase)=="discord") | .pid')
+
+# If Discord is running, stop it
+if [ -n "$pid" ]; then
+    kill -s SIGSTOP "$pid" 2>/dev/null
+fi
+
+# Turn off monitor DPMS
+#hyprctl dispatch dpms off
+
+# Lock screen (this blocks until you unlock)
+hyprlock
+
+# If Discord was stopped, resume it
+if [ -n "$pid" ]; then
+    kill -s SIGCONT "$pid" 2>/dev/null
+fi
+

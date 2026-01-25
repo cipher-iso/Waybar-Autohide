@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# VARIABLES
+STATE_FILE="$HOME/.config/waybar/Bar_Visible"
+AUTO_FILE="$HOME/.config/waybar/Autohide_Visible"
+
+# GET NUMBER OF TILED WINDOWS ON ACTIVE WORKSPACE
+get_tiled_on_active_ws(){ local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}'); hyprctl clients | awk -v ws="$ws" '/^Window /{cur_ws="";floating=""}/^\s*workspace:/{cur_ws=$2}/^\s*floating:/{floating=$2}cur_ws==ws&&floating==0{count++;cur_ws=""}END{print count+0}'; }
+
+# GET TILED COUNT
+tiled=$(get_tiled_on_active_ws)
+
+# DETERMINE IF WE SHOULD SEND SIGNALS
+send_signals=true
+[ -f "$AUTO_FILE" ] && send_signals=false
+
+# 2+ OR 0 TILED WINDOWS → ONLY TOGGLE STATE FILE
+if [ "$tiled" -ge 2 ] || [ "$tiled" -eq 0 ]; then
+	if [ -f "$STATE_FILE" ]; then
+		[ "$send_signals" = true ] && pkill -SIGUSR1 waybar
+		rm "$STATE_FILE"
+	else
+		[ "$send_signals" = true ] && pkill -SIGUSR2 waybar
+		touch "$STATE_FILE"
+	fi
+else
+# 1 TILED WINDOW → NORMAL TOGGLE
+	if [ -f "$STATE_FILE" ]; then
+		[ "$send_signals" = true ] && pkill -SIGUSR1 waybar
+		rm "$STATE_FILE"
+	else
+		[ "$send_signals" = true ] && pkill -SIGUSR2 waybar
+		touch "$STATE_FILE"
+	fi
+fi

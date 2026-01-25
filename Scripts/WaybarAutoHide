@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# VARIABLES
+STATE_FILE="$HOME/.config/waybar/Bar_Visible"
+AUTO_FILE="$HOME/.config/waybar/Autohide_Visible"
+bar_visible=false
+POLL_DELAY=0.05
+
+# GET Y POSITION OF CURSOR
+get_cursor_y(){ hyprctl cursorpos -j | sed -n '4p' | cut -d":" -f2; }
+
+# GET NUMBER OF TILED WINDOWS ON ACTIVE WORKSPACE
+get_tiled_on_active_ws(){ local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}'); hyprctl clients | awk -v ws="$ws" '/^Window /{cur_ws="";floating=""}/^\s*workspace:/{cur_ws=$2}/^\s*floating:/{floating=$2}cur_ws==ws&&floating==0{count++;cur_ws=""}END{print count+0}'; }
+
+# MAIN LOOP
+while true; do
+	[ -f "$STATE_FILE" ] && { sleep "$POLL_DELAY"; continue; }
+
+	Y=$(get_cursor_y)
+	tiled=$(get_tiled_on_active_ws)
+
+# SHOW BAR FOR 0 OR 2+ TILED WINDOWS
+	if [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
+		if [ "$bar_visible" = false ]; then
+			pkill -SIGUSR2 waybar
+			bar_visible=true
+			touch "$AUTO_FILE"
+		fi
+		sleep "$POLL_DELAY"
+		continue
+	fi
+
+# AUTO-HIDE/SHOW FOR 1 TILED WINDOW BASED ON MOUSE
+	if [ "$bar_visible" = false ] && [ "$Y" -le 20 ]; then
+		pkill -SIGUSR2 waybar
+		bar_visible=true
+		touch "$AUTO_FILE"
+	elif [ "$bar_visible" = true ] && [ "$Y" -gt 130 ]; then
+		pkill -SIGUSR1 waybar
+		bar_visible=false
+		[ -f "$AUTO_FILE" ] && rm "$AUTO_FILE"
+	fi
+
+	sleep "$POLL_DELAY"
+done

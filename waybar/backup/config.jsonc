@@ -1,0 +1,161 @@
+{
+	"start_hidden": false,
+	"reload_style_on_change": true,
+	"layer": "top",
+	"position": "top",
+	"margin-left": 18,
+	"margin-right": 18,
+	"margin-top": 18,
+	"modules-left": ["group/expand","cpu","temperature","memory","custom/updates"],
+	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio"],
+	"modules-right": ["custom/screenshare","bluetooth","network","clock","custom/lock"],
+
+	"hyprland/workspaces": {
+		"persistent-workspaces": {"*": 9},
+		"show-special": false,
+		"on-click": "",
+		"on-scroll-up": "ChangeWorkspace up",
+		"on-scroll-down": "ChangeWorkspace down",
+		"format":"{icon}",
+		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "S"}
+	},
+	"wireplumber": {
+		"on-click": "swayosd-client --playerctl=play-pause",
+		"on-click-right": "swayosd-client --output-volume mute-toggle",
+		"on-scroll-up": "swayosd-client --output-volume 5",
+		"on-scroll-down": "swayosd-client --output-volume -5",
+		"format": "{icon}",
+		"format-icons": ["","",""],
+    		"format-muted": "",
+		"tooltip-format": "[ VOLUME {volume}% ]" 
+},
+	"pulseaudio": {
+		"on-click": "swayosd-client --input-volume mute-toggle",
+    		"format": "{format_source}",
+    		"format-source": "",
+    		"format-source-muted": "",
+		"tooltip-format": "[ VOLUME {volume}% ]"
+		},
+        "custom/expand": {
+            	"format": "<span font='20'> </span>",
+            	"tooltip": false,
+		"on-click-right": "hyprctl hyprsunset gamma 100",
+		"on-click-middle": "",
+		"on-scroll-up": "hyprctl hyprsunset gamma +10",
+		"on-scroll-down": "hyprctl hyprsunset gamma -10"
+        },
+        "group/expand": {
+            	"orientation": "horizontal",
+            	"drawer": {
+                "transition-duration": 250,
+                "transition-to-right": true },
+            	"modules": ["custom/expand", "custom/power","custom/reboot","custom/logout"],
+        },
+        "cpu": {
+		"interval": 3,
+		"format": "[  {usage}% ]",
+        	"tooltip": false 
+        },
+        "memory": {
+	    	"interval": 3,
+            	"format": "[  {used:1.0f}GiB ]",
+		"tooltip": false
+        },
+        "temperature": {
+		"interval": 3,
+		"critical-threshold": 80,
+		"format": "[  {temperatureC}°C ]",
+		"tooltip": false,
+		"thermal-zone": 2,
+		"hwmon-path": ["/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"]
+        },
+	"custom/updates": {
+    		"exec": "WaybarUpdates",
+    		"format": "{}",
+    		"return-type": "json",
+    		"interval": 300,
+    		"tooltip": true,
+    		"on-click": "kitty --class updates -e RunUpdates -arch -tooltip"
+},
+	"custom/power": {
+		"format": "<span font='20'>󰙦</span>",
+		"on-click": "systemctl poweroff",
+		"tooltip-format": "<big>[ SHUTDOWN SYSTEM ]</big>",
+		"on-scroll-up": "",
+		"on-scroll-down": ""
+	},
+	"custom/reboot": {
+		"format": "<span font='20'>󱍷</span>",
+		"on-click": "systemctl reboot",
+		"tooltip-format": "<big>[ REBOOT SYSTEM ]</big>",
+		"on-scroll-up": "",
+		"on-scroll-down": ""
+	},
+	"custom/logout": {
+		"format": "<span font='20'>󰀉</span>",
+		"on-click": "hyprctl dispatch exit",
+		"tooltip-format": "<big>[ END SESSION ]</big>",
+		"on-scroll-up": "",
+		"on-scroll-down": ""	
+	},
+	"clock": {
+		"interval": 1,
+		"format": "[  {:%I:%M:%S %p} ]",
+		"tooltip-format": "<tt><big>{calendar}</big></tt>",
+	"calendar": {
+		"mode"          : "month",
+		"mode-mon-col"  : 3,
+		"on-scroll"     : 1,
+		"format": {
+			"months":     "<span color='#F0F0F0'><b>{}</b></span>",
+			"days":       "<span color='#444E58'><b>{}</b></span>",
+			"weekdays":   "<span color='#2D333A'><b>{}</b></span>",
+			"today":      "<span color='#00FF40'><b><u>{}</u></b></span>"
+		}
+	},
+		"actions": {
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+	}
+},
+	"custom/lock": {
+		"on-click": "LockScreen",
+		"format": "",
+		"tooltip-format": "<big>[ LOCK SESSION ]</big>"
+	},
+	"network": {
+		"interval": 300,
+		"on-click": "nmcli radio wifi | grep -q 'enabled' && nmcli radio wifi off || nmcli radio wifi on",
+		"on-click-right": "nmgui",
+		"format": "[ {icon} ]",
+		"format-wifi": "[ {icon} ]",
+		"format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
+		"format-ethernet": "[  ]",
+		"format-disconnected": "[ 󰤭 ]",
+		"format-disabled": "[ 󰤭 ]",
+		"tooltip-format": "<big>[ {ifname} ]</big>",
+		"tooltip-format-wifi": "<big>[ {essid} ] - [{signalStrength}%]</big>",
+		"tooltip-format-ethernet": "<big>[ {ifname}  ]</big>",
+		"tooltip-format-disconnected": "<big>[ OFFLINE ]</big>",
+		"tooltip-format-disabled": "<big>[ OFFLINE ]</big>",
+		"max-length": 20
+},
+	"bluetooth": {
+		"interval": 3,
+		"on-click": "ToggleBluetooth",
+		"on-click-right": "blueman-manager",
+		"format": "[ 󰂱 ]",
+		"format-off": "[ 󰂲 ]",
+		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
+		"tooltip-format-connected": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED\n\n{device_enumerate} ]",
+		"tooltip-format-enumerate-connected": "[ {device_alias}\t{device_address} ]",
+		"tooltip-format-enumerate-connected-battery": "[ {device_alias}\t{device_address}\t{device_battery_percentage}% ]"
+},
+	"custom/screenshare": {
+ 		"exec": "ToggleScreenShare",
+  		"on-click": "ToggleScreenShare toggle",
+  		"interval": 1,
+   		"format": "[ {} ]",
+		"return-type": "json"
+}
+}

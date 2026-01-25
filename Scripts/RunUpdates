@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Provided by: https://github.com/JJDizz1L
+export SUDO_PROMPT=$'\e[1;38;2;0;255;153m> ENTER PASSPHRASE: \e[0m'
+
+install_arch_updates() {
+    printf "\e[1;38;2;0;255;64m┏━  ┏┓┓┏┏┓┏┳┓┏┓┳┳┓  ┳┳┏┓┳┓┏┓┏┳┓┏┓  ━┓
+┃   ┗┓┗┫┗┓ ┃ ┣ ┃┃┃  ┃┃┃┃┃┃┣┫ ┃ ┣    ┃
+┗━  ┗┛┗┛┗┛ ┻ ┗┛┛ ┗  ┗┛┣┛┻┛┛┗ ┻ ┗┛  ━┛\e[0m\n"
+    sudo -p "$SUDO_PROMPT" pacman -Syu
+    printf "\e[38;2;0;255;64m┏━  ┳┳┏┓┏┓┳┓  ┳┓┏┓┏┓┏┓┏┓┳┏┳┓┏┓┳┓┳┏┓┏┓  ━┓
+┃   ┃┃┗┓┣ ┣┫  ┣┫┣ ┃┃┃┃┗┓┃ ┃ ┃┃┣┫┃┣ ┗┓   ┃
+┗━  ┗┛┗┛┗┛┛┗  ┛┗┗┛┣┛┗┛┗┛┻ ┻ ┗┛┛┗┻┗┛┗┛  ━┛\e[0m\n"
+    if command -v paru &> /dev/null; then
+        paru -Syu
+    elif command -v yay &> /dev/null; then
+	yay -Syu
+    else
+        echo "Missing AUR Helper. Try installing yay or paru"
+    fi
+    if command -v flatpak &> /dev/null; then
+        printf "\e[38;2;0;255;64m┏━  ┏┓┓ ┏┓┏┳┓┏┓┏┓┓┏┓  ┏┓┏┓┏┓┏┳┓┓ ┏┏┓┳┓┏┓  ━┓
+┃   ┣ ┃ ┣┫ ┃ ┃┃┣┫┃┫   ┗┓┃┃┣  ┃ ┃┃┃┣┫┣┫┣    ┃
+┗━  ┻ ┗┛┛┗ ┻ ┣┛┛┗┛┗┛  ┗┛┗┛┻  ┻ ┗┻┛┛┗┛┗┗┛  ━┛\e[0m\n"
+	      flatpak update -y
+    fi
+    printf "\e[38;2;0;255;64m┏━  ┳┳┏┓┳┓┏┓┏┳┓┏┓┏┓  ┏┓┏┓┳┳┓┏┓┓ ┏┓┏┳┓┏┓╻  ━┓
+┃   ┃┃┃┃┃┃┣┫ ┃ ┣ ┗┓  ┃ ┃┃┃┃┃┃┃┃ ┣  ┃ ┣ ┃   ┃
+┗━  ┗┛┣┛┻┛┛┗ ┻ ┗┛┗┛  ┗┛┗┛┛ ┗┣┛┗┛┗┛ ┻ ┗┛•  ━┛\e[0m\n"
+}
+
+case "$1" in
+-arch)
+    install_arch_updates
+    ;;
+*)
+    echo "Usage: $0 {-arch}"
+    ;;
+esac
+
+    printf "\e[1;38;2;0;255;153m         [ PRESS ANY KEY TO EXIT ]\e[0m\n"
+read -n 1

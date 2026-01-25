@@ -1,0 +1,42 @@
+window#osd {
+  border-radius: 999px;
+  border: none;
+  background: alpha(#000000,0.85);
+  padding: 0px; }
+  window#osd #container {
+    margin: 3px;
+    background: transparent;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 999px; }
+  window#osd image {
+	color: #00ff40; }
+  window#osd label {
+    color: #ebfafa; 
+   	font-family: Barlow;
+    	font-weight: 800;
+    	font-size: 19px;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase; }
+  window#osd progressbar:disabled,
+  window#osd image:disabled {
+    color: #323449; }
+  window#osd progressbar {
+    min-height: 10px;
+    border-radius: 6px;
+    background: transparent;
+    border: none; }
+  window#osd trough {
+    min-height: 15px;
+    border-radius: inherit;
+    background: alpha(#212337,0.5); }
+  window#osd progress {
+    min-height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #00ff40, #37f499); }
+ window#osd progress:disabled {
+    min-height: inherit;
+    border-radius: inherit;
+    background: alpha(#212337,0.5); }

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+STATE_FILE="$HOME/Scripts/.Screenshare-ON"
+RULES_FILE="$HOME/.config/hypr/Config/WindowRules.conf"
+
+{ source "$HOME/Scripts/ColorGen/Colors"; } 2>/dev/null
+
+# ENABLE SCREENSHARING
+set_on() {
+	hyprctl dispatch setprop class:vivaldi-stable no_screen_share on
+	hyprctl dispatch setprop class:discord no_screen_share on
+	sed -i \
+		-e 's/^windowrule = \$SS-VIVALDI$/windowrule = $NSS-VIVALDI/' \
+		-e 's/^windowrule = \$SS-DISCORD$/windowrule = $NSS-DISCORD/' \
+		-e 's/decorate = \$SS-BORDERS/decorate = $NSS-BORDERS/' \
+		"$RULES_FILE"
+	hyprctl reload
+	hyprctl keyword general:col.active_border "rgb($GRADIENT1) rgb($GRADIENT2) 45deg"
+	hyprctl keyword decoration:shadow:color "rgba("$PRIMARY"20)"
+	rm -f "$STATE_FILE"
+	CLASS="on"
+}
+
+# DISABLE SCREENSHARING
+set_off() {
+	hyprctl dispatch setprop class:vivaldi-stable no_screen_share off
+	hyprctl dispatch setprop class:discord no_screen_share off
+	sed -i \
+		-e 's/^windowrule = \$NSS-VIVALDI$/windowrule = $SS-VIVALDI/' \
+		-e 's/^windowrule = \$NSS-DISCORD$/windowrule = $SS-DISCORD/' \
+		-e 's/decorate = \$NSS-BORDERS/decorate = $SS-BORDERS/' \
+		"$RULES_FILE"
+	hyprctl reload
+	hyprctl keyword general:col.active_border "rgb($SECONDARY) rgb($TERTIARY) 45deg"
+	hyprctl keyword decoration:shadow:color "rgba("$TERTIARY"15)"
+	touch "$STATE_FILE"
+	CLASS="off"
+}
+
+case "$1" in
+	toggle)
+		if [ -f "$STATE_FILE" ]; then set_on; else set_off; fi
+		;;
+	*)
+		if [ -f "$STATE_FILE" ]; then CLASS="off"; else CLASS="on"; fi
+		;;
+esac
+
+if [ "$CLASS" = "on" ]; then
+	ICON=""
+	TOOLTIP="[ SCREEN - INCOGNITO ]"
+else
+	ICON=""
+	TOOLTIP="[ SCREEN - VISIBLE ]"
+fi
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$ICON" "$TOOLTIP"
