@@ -3,7 +3,7 @@
 ![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
 
 **STEP 1:</br>** git clone https://github.com/cipher-xui/Waybar-Autohide.git<br/></br>
-**STEP 2:</br>** drag 'Scripts' into $HOME directory<br/></br>
+**STEP 2:</br>** drag '`Scripts`' into your `$HOME` directory<br/></br>
 **STEP 3:</br>** add this to your Waybar config<br/>
 
 	"on-sigusr1": "hide",
@@ -39,7 +39,7 @@
 **If you want to install my entire Waybar config, then follow the steps below.**<br/>
 
 **STEP 6:**<br/>
-Drag all other contents into '$HOME/.config/' directory<br/>
+Drag all other contents into your '`$HOME/.config/`' directory<br/>
   
 **STEP 7:**<br/>
 Install necessary packages<br/>
