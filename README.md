@@ -1,4 +1,6 @@
 # **How to Install:<br/>**
+**[PREVIEW]:<br/>**
+![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
 
 **STEP 1:</br>** git clone https://github.com/cipher-xui/Waybar-Autohide.git<br/></br>
 **STEP 2:</br>** drag 'Scripts' into $HOME directory<br/></br>
