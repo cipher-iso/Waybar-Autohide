@@ -12,13 +12,13 @@ How to Install:
 	"gtk-layer-shell": true,
 	"exclusive": true,`
 5. (optional). add custom module to toggle with mouse
-`"custom/barlock": {
-    "exec": "~/.config/waybar/WaybarLockModule",
-    "interval": 1,
-    "format": "{}",
-    "return-type": "json",
-    "on-click": "ToggleWaybar"
-}`
+`"custom/barlock": {`
+  `  "exec": "~/.config/waybar/WaybarLockModule",`
+  `  "interval": 1,`
+  `  "format": "{}",`
+   ` "return-type": "json",`
+ `   "on-click": "ToggleWaybar"`
+`}`
 
 
 Packages needed:
