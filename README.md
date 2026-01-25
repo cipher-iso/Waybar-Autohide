@@ -30,7 +30,7 @@
    		"on-click": "~/Scripts/ToggleWaybar"
    	}
 
-**⚠️ [Note: Remember to restart Waybar after these steps, otherwise it will not work] ⚠️**
+**⚠️ [Note: Restart Waybar after these steps, or it will not work] ⚠️**
 
  <br/>
  <br/>
