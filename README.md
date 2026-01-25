@@ -1,4 +1,4 @@
-# **How to Install:<br/>**
+# **PARTIAL INSTALL: [AUTO-HIDE ONLY]<br/>**
 **[PREVIEW]:<br/>**
 ![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
 
@@ -30,12 +30,12 @@
    		"on-click": "~/Scripts/ToggleWaybar"
    	}
 
-**[Note: Remember to restart Waybar after these steps, otherwise it will not work]**
+**⚠️ [Note: Remember to restart Waybar after these steps, otherwise it will not work] ⚠️**
 
  <br/>
  <br/>
 
-# FULL INSTALL:
+# FULL INSTALL: [ENTIRE WAYBAR CONFIG]
 **If you want to install my entire Waybar config, then follow the steps below.**<br/>
 
 **STEP 6:**<br/>
