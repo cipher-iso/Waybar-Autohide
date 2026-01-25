@@ -1,4 +1,4 @@
-**How to Install:<br/>**
+# **How to Install:<br/>**
 
 **STEP 1: git clone https://github.com/cipher-xui/Waybar-Autohide.git<br/>**
 **STEP 2: drag 'Scripts' into $HOME directory<br/>**
@@ -21,11 +21,17 @@
    		"interval": 1,<br/>
    		"format": "{}",<br/>
    		"return-type": "json",<br/>
-   		"on-click": "ToggleWaybar"<br/>
+   		"on-click": "~/Scripts/ToggleWaybar"<br/>
    	}
+
+**STEP 6: Run the script via hyprctl or exec-once<br/>**
+- `hyprctl dispatch exec ~/Scripts/WaybarAutohide &`<br/>
+  OR [In your Hyprland.conf]<br/>
+- `exec-once = ~/Scripts/WaybarAutohide`<br/>
  <br/>
  <br/>
- 
+
+# FULL INSTALL:
 **Packages needed:**<br/>
 *[Only if you are installing the entire bar - via 'Step 3']*<br/>
 
@@ -40,7 +46,12 @@
 - nmgui-bin
 - blueman
 
-Quick Package Install:<br/>
+**Quick Package Install:**<br/>
 *[Only if you are installing the entire bar - via 'Step 3']*<br/>
 `sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman`<br/>
 `yay -S --needed nmgui-bin`
+
+**Custom .bashrc Path':**<br/>
+*[This is necessary to have Waybar work OOB - all Waybar functions are defined via Path to ~/Scripts]*<br/>
+
+	export PATH="$HOME/Scripts:$PATH"
