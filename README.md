@@ -3,7 +3,7 @@
 ![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
 
 **STEP 1:</br>** git clone https://github.com/cipher-xui/Waybar-Autohide.git<br/></br>
-**STEP 2:</br>** drag '`Scripts`' into your `$HOME` directory<br/></br>
+**STEP 2:</br>** drag '`Scripts`' into your `$HOME` directory<br/>*`You will not need the other contents, unless you are doing the FULL INSTALL below.`*</br></br>
 **STEP 3:</br>** add this to your Waybar config<br/>
 
 	"on-sigusr1": "hide",
@@ -14,8 +14,13 @@
 	"position": "top",
 	"gtk-layer-shell": true,
 	"exclusive": true,
+
+**STEP 4: Run the script via hyprctl or exec-once<br/>**
+- `hyprctl dispatch exec ~/Scripts/WaybarAutohide &`<br/>
+  OR [In your Hyprland.conf]<br/>
+- `exec-once = ~/Scripts/WaybarAutohide`<br/><br/>
 	
-**STEP 4: [OPTIONAL]<br/>** Add custom module to toggle with mouse<br/>
+**STEP 5: [OPTIONAL]<br/>** Add custom module to toggle with mouse<br/>
 
 	"custom/barlock": {
 		"exec": "~/.config/waybar/WaybarLockModule",
@@ -25,12 +30,7 @@
    		"on-click": "~/Scripts/ToggleWaybar"
    	}
 
-**STEP 5: Run the script via hyprctl or exec-once<br/>**
-- `hyprctl dispatch exec ~/Scripts/WaybarAutohide &`<br/>
-  OR [In your Hyprland.conf]<br/>
-- `exec-once = ~/Scripts/WaybarAutohide`<br/>
-
-**[Note: Remember to restart Waybar after all these steps, otherwise it will not work]**
+**[Note: Remember to restart Waybar after these steps, otherwise it will not work]**
 
  <br/>
  <br/>
