@@ -36,7 +36,7 @@
  <br/>
 
 # FULL INSTALL: [ENTIRE WAYBAR CONFIG]
-**If you want to install my entire Waybar config, then follow the steps below.**<br/>
+**If you want to install my entire Waybar config, then follow the steps below.**<br/><br/>
 
 **STEP 6:**<br/>
 Drag all other contents into your '`$HOME/.config/`' directory<br/>
