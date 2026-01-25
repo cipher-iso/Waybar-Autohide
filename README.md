@@ -1,27 +1,33 @@
-How to Install:
-1. git clone https://github.com/cipher-xui/Waybar-Autohide.git
-2. drag 'Scripts' into $HOME directory
-3 (optional). drag all other contents into '$HOME/.config/' directory
-4. add this to your Waybar config
-  `"on-sigusr1": "hide",
-	"on-sigusr2": "show",
-	"start_hidden": true,
-	"reload_style_on_change": true,
-	"layer": "top",
-	"position": "top",
-	"gtk-layer-shell": true,
-	"exclusive": true,`
-5. (optional). add custom module to toggle with mouse
-   `"custom/barlock": {
-   "exec": "~/.config/waybar/WaybarLockModule",
-   "interval": 1,
-   "format": "{}",
-   "return-type": "json",
-   "on-click": "ToggleWaybar"
-   }`
+**How to Install:<br/>**
 
+**STEP 1: git clone https://github.com/cipher-xui/Waybar-Autohide.git<br/>**
+**STEP 2: drag 'Scripts' into $HOME directory<br/>**
+**STEP 3 [OPT]: drag all other contents into '$HOME/.config/' directory<br/>**
+**STEP 4: add this to your Waybar config<br/>**
 
-Packages needed:
+	"on-sigusr1": "hide",<br/>
+	"on-sigusr2": "show",<br/>
+	"start_hidden": true,<br/>
+	"reload_style_on_change": true,<br/>
+	"layer": "top",<br/>
+	"position": "top",<br/>
+	"gtk-layer-shell": true,<br/>
+	"exclusive": true,<br/>
+	
+**STEP 5 [OPT]: add custom module to toggle with mouse<br/>**
+
+	"custom/barlock": {<br/>
+		"exec": "~/.config/waybar/WaybarLockModule",<br/>
+   		"interval": 1,<br/>
+   		"format": "{}",<br/>
+   		"return-type": "json",<br/>
+   		"on-click": "ToggleWaybar"<br/>
+   	}
+ <br/>
+ <br/>
+ 
+**Packages needed:**
+*[Only if you are installing the entire bar - via 'Step 3']*
 
 - Hyprland [duh]
 - Waybar [duh]
@@ -33,8 +39,6 @@ Packages needed:
 - Pavucontrol-QT
 - nmgui-bin
 - blueman
-
-[ These are only necessary if you intend to copy the entire Waybar config ]
 
 OOB Install:
 `sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman`
