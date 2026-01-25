@@ -26,8 +26,8 @@
  <br/>
  <br/>
  
-**Packages needed:**
-*[Only if you are installing the entire bar - via 'Step 3']*
+**Packages needed:**<br/>
+*[Only if you are installing the entire bar - via 'Step 3']*<br/>
 
 - Hyprland [duh]
 - Waybar [duh]
@@ -40,6 +40,7 @@
 - nmgui-bin
 - blueman
 
-OOB Install:
-`sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman`
+Quick Package Install:<br/>
+*[Only if you are installing the entire bar - via 'Step 3']*<br/>
+`sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman`<br/>
 `yay -S --needed nmgui-bin`
