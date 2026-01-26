@@ -30,13 +30,14 @@
    		"on-click": "~/Scripts/ToggleWaybar"
    	}
 
-**⚠️ [Note: Restart Waybar after these steps, or it will not work] ⚠️**
+> [!WARNING]  
+> Restart Waybar after these steps, or it will not work
 
- <br/>
  <br/>
 
 # FULL INSTALL: [ENTIRE WAYBAR CONFIG]
-**If you want to install my entire Waybar config, then follow the steps below.**<br/><br/>
+> [!IMPORTANT]  
+> **If you want to install my entire Waybar config, then follow the steps below.**
 
 **STEP 6:**<br/>
 Drag all other contents into your '`$HOME/.config/`' directory<br/>
