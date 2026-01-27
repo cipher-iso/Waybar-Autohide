@@ -4,7 +4,7 @@
 
 **STEP 1:</br>** git clone https://github.com/cipher-iso/Waybar-Autohide.git<br/></br>
 **STEP 2:</br>** drag '`Scripts`' into your `$HOME` directory<br/>*`You will not need the other contents, unless you are doing the FULL INSTALL below.`*</br></br>
-**STEP 3:</br>** add this to your Waybar config<br/>
+**STEP 3:</br>** add this to the top of your Waybar config<br/>
 
 	"on-sigusr1": "hide",
 	"on-sigusr2": "show",
