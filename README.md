@@ -1,6 +1,6 @@
 # **PARTIAL INSTALL: [AUTO-HIDE ONLY]<br/>**
 **[PREVIEW]:<br/>**
-![Preview](https://raw.githubusercontent.com/cipher-iso/Waybar-Autohide/main/Preview.gif)
+![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
 
 **STEP 1:</br>** git clone https://github.com/cipher-iso/Waybar-Autohide.git<br/></br>
 **STEP 2:</br>** drag '`Scripts`' into your `$HOME` directory<br/>*`You will not need the other contents, unless you are doing the FULL INSTALL below.`*</br></br>
