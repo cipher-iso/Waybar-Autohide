@@ -9,11 +9,11 @@ RULES_FILE="$HOME/.config/hypr/Config/WindowRules.conf"
 set_on() {
 	hyprctl dispatch setprop class:vivaldi-stable no_screen_share on
 	hyprctl dispatch setprop class:discord no_screen_share on
-	sed -i \
-		-e 's/^windowrule = \$SS-VIVALDI$/windowrule = $NSS-VIVALDI/' \
-		-e 's/^windowrule = \$SS-DISCORD$/windowrule = $NSS-DISCORD/' \
-		-e 's/decorate = \$SS-BORDERS/decorate = $NSS-BORDERS/' \
-		"$RULES_FILE"
+sed -i \
+	-e 's/\$SCREENSHARE/\$NOSCREENSHARE/g' \
+	-e 's/decorate = \$SS-BORDERS/decorate = $NSS-BORDERS/' \
+	"$RULES_FILE"
+
 	hyprctl reload
 	hyprctl keyword general:col.active_border "rgb($GRADIENT1) rgb($GRADIENT2) 45deg"
 	hyprctl keyword decoration:shadow:color "rgba("$PRIMARY"20)"
@@ -25,11 +25,11 @@ set_on() {
 set_off() {
 	hyprctl dispatch setprop class:vivaldi-stable no_screen_share off
 	hyprctl dispatch setprop class:discord no_screen_share off
-	sed -i \
-		-e 's/^windowrule = \$NSS-VIVALDI$/windowrule = $SS-VIVALDI/' \
-		-e 's/^windowrule = \$NSS-DISCORD$/windowrule = $SS-DISCORD/' \
-		-e 's/decorate = \$NSS-BORDERS/decorate = $SS-BORDERS/' \
-		"$RULES_FILE"
+sed -i \
+	-e 's/\$NOSCREENSHARE/\$SCREENSHARE/g' \
+	-e 's/decorate = \$NSS-BORDERS/decorate = $SS-BORDERS/' \
+	"$RULES_FILE"
+
 	hyprctl reload
 	hyprctl keyword general:col.active_border "rgb($SECONDARY) rgb($TERTIARY) 45deg"
 	hyprctl keyword decoration:shadow:color "rgba("$TERTIARY"15)"
