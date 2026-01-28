@@ -6,8 +6,8 @@ STATE_FILE="$HOME/.config/waybar/Bar_Visible"
 # OUTPUT WAYBAR STATUS WITH TOOLTIP
 if [ -f "$STATE_FILE" ]; then
 	# WAYBAR TOGGLED ON
-	echo "{\"text\":\"[  ]\",\"class\":\"active\",\"tooltip\":\"[ WAYBAR - LOCKED ]\"}"
+	echo "{\"text\":\"\",\"class\":\"active\",\"tooltip\":\"[ WAYBAR - LOCKED ]\"}"
 else
 	# WAYBAR TOGGLED OFF
-	echo "{\"text\":\"[  ]\",\"class\":\"inactive\",\"tooltip\":\"[ WAYBAR - UNLOCKED ]\"}"
+	echo "{\"text\":\"\",\"class\":\"inactive\",\"tooltip\":\"[ WAYBAR - UNLOCKED ]\"}"
 fi
