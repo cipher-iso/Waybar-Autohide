@@ -1,7 +1,8 @@
 {
+/* MAIN SETTINGS */
 	"on-sigusr1": "hide",
 	"on-sigusr2": "show",
-	"start_hidden": true,
+	"start_hidden": false,
 	"reload_style_on_change": true,
 	"layer": "top",
 	"position": "top",
@@ -13,34 +14,7 @@
 	"modules-left": ["group/expand","cpu","temperature","memory","custom/barlock","custom/updates"],
 	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio"],
 	"modules-right": ["custom/screenshare","bluetooth","network","clock","custom/lock"],
-
-	"hyprland/workspaces": {
-		"persistent-workspaces": {"*": 9},
-		"show-special": false,
-		"on-scroll-up": "hyprctl dispatch workspace e+1",
-		"on-scroll-down": "hyprctl dispatch workspace e-1",
-		"format":"{icon}",
-		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "S"}
-	},
-	"wireplumber": {
-		"on-click": "swayosd-client --playerctl=play-pause",
-		"on-click-right": "swayosd-client --output-volume mute-toggle",
-		"on-click-middle": "swayosd-client --playerctl=next",
-		"on-scroll-up": "swayosd-client --output-volume 5",
-		"on-scroll-down": "swayosd-client --output-volume -5",
-		"format": "{icon}",
-		"format-icons": ["","",""],
-    		"format-muted": "",
-		"tooltip-format": "[ VOLUME {volume}% ]" 
-},
-	"pulseaudio": {
-		"on-click": "swayosd-client --input-volume mute-toggle",
-		"on-click-middle": "pavucontrol-qt",
-    		"format": "{format_source}",
-    		"format-source": "",
-    		"format-source-muted": "",
-		"tooltip-format": "[ VOLUME {volume}% ]"
-		},
+/* POWER MENU - EXPANDER */
         "custom/expand": {
             	"format": "<span font='20'> </span>",
 		"exec": "Gamma",
@@ -58,16 +32,33 @@
                 "transition-duration": 250,
                 "transition-to-right": true },
             	"modules": ["custom/expand", "custom/power","custom/reboot","custom/logout"],
-        },
+	},
+	"custom/power": {
+		"format": "  ",
+		"on-click": "systemctl poweroff",
+		"tooltip-format": "[ SHUTDOWN SYSTEM ]",
+		"on-scroll-up": "",
+		"on-scroll-down": ""
+	},
+	"custom/reboot": {
+		"format": "  ",
+		"on-click": "systemctl reboot",
+		"tooltip-format": "[ REBOOT SYSTEM ]",
+		"on-scroll-up": "",
+		"on-scroll-down": ""
+	},
+	"custom/logout": {
+		"format": "   ",
+		"on-click": "hyprctl dispatch exit",
+		"tooltip-format": "[ END SESSION ]",
+		"on-scroll-up": "",
+		"on-scroll-down": ""	
+	},
+/* POWER MODULES */
         "cpu": {
 		"interval": 3,
 		"format": "[  {usage}% ]",
         	"tooltip": false 
-        },
-        "memory": {
-	    	"interval": 3,
-            	"format": "[  {used:1.0f}GiB ]",
-		"tooltip": false
         },
         "temperature": {
 		"interval": 3,
@@ -77,6 +68,20 @@
 		"thermal-zone": 2,
 		"hwmon-path": ["/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"]
         },
+        "memory": {
+	    	"interval": 3,
+            	"format": "[  {used:1.0f}GiB ]",
+		"tooltip": false
+        },
+/* WAYBAR LOCK */
+	"custom/barlock": {
+   		"exec": "~/.config/waybar/WaybarLockModule",
+    		"interval": 1,
+    		"format": "[ {} ]",
+    		"return-type": "json",
+    		"on-click": "ToggleWaybar"
+	},
+/* SYSTEM UPDATES MODULE */
 	"custom/updates": {
     		"exec": "WaybarUpdates",
     		"format": "{}",
@@ -84,52 +89,56 @@
     		"interval": 300,
     		"tooltip": true,
     		"on-click": "kitty --class updates -e RunUpdates -arch -tooltip"
-},
-	"custom/power": {
-		"format": "<span font='20'>󰙦</span>",
-		"on-click": "systemctl poweroff",
-		"tooltip-format": "[ SHUTDOWN SYSTEM ]",
-		"on-scroll-up": "",
-		"on-scroll-down": ""
 	},
-	"custom/reboot": {
-		"format": "<span font='20'>󱍷</span>",
-		"on-click": "systemctl reboot",
-		"tooltip-format": "[ REBOOT SYSTEM ]",
-		"on-scroll-up": "",
-		"on-scroll-down": ""
+/* AUDIO MODULE */
+	"wireplumber": {
+		"on-click": "swayosd-client --playerctl=play-pause",
+		"on-click-right": "swayosd-client --output-volume mute-toggle",
+		"on-click-middle": "swayosd-client --playerctl=next",
+		"on-scroll-up": "swayosd-client --output-volume 5",
+		"on-scroll-down": "swayosd-client --output-volume -5",
+		"format": "{icon}",
+		"format-icons": ["","",""],
+    		"format-muted": "",
+		"tooltip-format": "[ VOLUME {volume}% ]" 
 	},
-	"custom/logout": {
-		"format": "<span font='20'>󰀉</span>",
-		"on-click": "hyprctl dispatch exit",
-		"tooltip-format": "[ END SESSION ]",
-		"on-scroll-up": "",
-		"on-scroll-down": ""	
+/* HYPRLAND WORKSPACES */
+	"hyprland/workspaces": {
+		"persistent-workspaces": {"*": 9},
+		"show-special": false,
+		"on-scroll-up": "hyprctl dispatch workspace e+1",
+		"on-scroll-down": "hyprctl dispatch workspace e-1",
+		"format":"{icon}",
+		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "S"}
 	},
-	"clock": {
-		"interval": 1,
-		"format": "[ {:%m|%d  %I:%M:%S %p} ]",
-		"tooltip-format": "<tt><big>{calendar}</big></tt>",
-	"calendar": {
-		"mode"          : "month",
-		"mode-mon-col"  : 3,
-		"on-scroll"     : 1,
-		"format": {
-			"months":     "<span color='#F0F0F0'>{}</span>",
-			"days":       "<span color='#444E58'>{}</span>",
-			"weekdays":   "<span color='#2D333A'>{}</span>",
-			"today":      "<span color='#00FF40'><b>{}</b></span>"
-		}
+/* MICROPHONE MODULE */
+	"pulseaudio": {
+		"on-click": "swayosd-client --input-volume mute-toggle",
+		"on-click-middle": "pavucontrol-qt",
+    		"format": "{format_source}",
+    		"format-source": "",
+    		"format-source-muted": "",
+		"tooltip-format": "[ VOLUME {volume}% ]"
 	},
-		"actions": {
-			"on-scroll-up": "shift_up",
-			"on-scroll-down": "shift_down"
-	}
-},
-	"custom/lock": {
-		"on-click": "LockScreen",
-		"format": "",
-		"tooltip-format": "[ LOCK SESSION ]"
+/* SCREENSHARE MODULE */
+	"custom/screenshare": {
+ 		"exec": "ToggleScreenShare",
+  		"on-click": "ToggleScreenShare toggle",
+  		"interval": 1,
+   		"format": "[ {} ]",
+		"return-type": "json"
+	},
+/* BLUETOOTH & NETWORK MODULES */
+	"bluetooth": {
+		"interval": 3,
+		"on-click": "ToggleBluetooth",
+		"on-click-right": "blueman-manager",
+		"format": "[ 󰂱 ]",
+		"format-off": "[ 󰂲 ]",
+		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
+		"tooltip-format-connected": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED\n\n{device_enumerate} ]",
+		"tooltip-format-enumerate-connected": "[ {device_alias}\t{device_address} ]",
+		"tooltip-format-enumerate-connected-battery": "[ {device_alias}\t{device_address}\t{device_battery_percentage}% ]"
 	},
 	"network": {
 		"interval": 300,
@@ -147,31 +156,29 @@
 		"tooltip-format-disconnected": "[ OFFLINE ]",
 		"tooltip-format-disabled": "[ OFFLINE ]",
 		"max-length": 20
-},
-	"bluetooth": {
-		"interval": 3,
-		"on-click": "ToggleBluetooth",
-		"on-click-right": "blueman-manager",
-		"format": "[ 󰂱 ]",
-		"format-off": "[ 󰂲 ]",
-		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
-		"tooltip-format-connected": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED\n\n{device_enumerate} ]",
-		"tooltip-format-enumerate-connected": "[ {device_alias}\t{device_address} ]",
-		"tooltip-format-enumerate-connected-battery": "[ {device_alias}\t{device_address}\t{device_battery_percentage}% ]"
-},
-	"custom/screenshare": {
- 		"exec": "ToggleScreenShare",
-  		"on-click": "ToggleScreenShare toggle",
-  		"interval": 1,
-   		"format": "[ {} ]",
-		"return-type": "json"
-},
-"custom/barlock": {
-    "exec": "~/.config/waybar/WaybarLockModule",
-    "interval": 1,
-    "format": "{}",
-    "return-type": "json",
-    "on-click": "ToggleWaybar"
-}
-
+	},
+/* CLOCK & CALENDER MODULE */
+	"clock": {
+		"interval": 1,
+		"format": "[ {:%m|%d  %I:%M:%S %p} ]",
+		"tooltip-format": "<tt><big>{calendar}</big></tt>",
+		"calendar": {
+		"mode"          : "month",
+		"mode-mon-col"  : 3,
+		"on-scroll"     : 1,
+		"actions": {
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down" },
+		"format": {
+			"months":     "<span color='#F0F0F0'>{}</span>",
+			"days":       "<span color='#444E58'>{}</span>",
+			"weekdays":   "<span color='#2D333A'>{}</span>",
+			"today":      "<span color='#00FF40'><b>{}</b></span>" }},
+	},
+/* LOCKSCREEN MODULE */
+	"custom/lock": {
+		"on-click": "LockScreen",
+		"format": " ",
+		"tooltip-format": "[ LOCK SESSION ]"
+	}
 }
