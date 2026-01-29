@@ -55,7 +55,7 @@ Install necessary packages<br/>
 Create a custom `$PATH` in your `.bashrc`<br/>
 	`export PATH="$HOME/Scripts:$PATH"`
 
-## Star History
+## ✨ STAR HISTORY
 
 <a href="https://www.star-history.com/#cipher-iso/Waybar-Autohide&cipher-iso/dotfiles&type=date&legend=top-left">
  <picture>
