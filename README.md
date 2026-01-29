@@ -1,4 +1,4 @@
-# **💫 PARTIAL INSTALL: [AUTO-HIDE ONLY]<br/>**
+# 💫 PARTIAL INSTALL: [AUTO-HIDE ONLY]<br/>
 > [!NOTE]
 **[AUTO-HIDE PREVIEW]:<br/>**
 ![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
@@ -39,7 +39,7 @@ config directory, then create the module within your 'config.jsonc'.
 
  <br/>
 
-# **🌟 FULL INSTALL: [ENTIRE WAYBAR CONFIG]**
+# 🌟 FULL INSTALL: [ENTIRE WAYBAR CONFIG]
 > [!IMPORTANT]  
 > **If you want to install my entire Waybar config, then follow the steps below.**
 
@@ -55,7 +55,9 @@ Install necessary packages<br/>
 Create a custom `$PATH` in your `.bashrc`<br/>
 	`export PATH="$HOME/Scripts:$PATH"`
 
-## ✨ STAR HISTORY
+<br/>
+
+# ✨ STAR HISTORY:
 
 <a href="https://www.star-history.com/#cipher-iso/Waybar-Autohide&cipher-iso/dotfiles&type=date&legend=top-left">
  <picture>
