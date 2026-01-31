@@ -54,7 +54,7 @@
 		"on-scroll-up": "",
 		"on-scroll-down": ""	
 	},
-/* POWER MODULES */
+/* STAT MODULES */
         "cpu": {
 		"interval": 3,
 		"format": "[  {usage}% ]",
