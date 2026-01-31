@@ -95,10 +95,10 @@ Add this to your `.bashrc` or `shell`:
 
 ## <p align="center">✨ STAR HISTORY ✨</p>
 
-<a href="https://www.star-history.com/#cipher-iso/Waybar-Autohide&cipher-iso/dotfiles&type=date&legend=top-left">
+<a href="https://www.star-history.com/#cipher-iso/Cipher-OS&cipher-iso/Waybar-Autohide&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=cipher-iso/Waybar-Autohide,cipher-iso/dotfiles&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=cipher-iso/Waybar-Autohide,cipher-iso/dotfiles&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=cipher-iso/Waybar-Autohide,cipher-iso/dotfiles&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=cipher-iso/Cipher-OS,cipher-iso/Waybar-Autohide&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=cipher-iso/Cipher-OS,cipher-iso/Waybar-Autohide&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=cipher-iso/Cipher-OS,cipher-iso/Waybar-Autohide&type=date&legend=top-left" />
  </picture>
 </a>
