@@ -1,63 +1,99 @@
-# 💫 PARTIAL INSTALL: [AUTO-HIDE ONLY]<br/>
+# <p align="center">🌘 WAYBAR AUTO-HIDE 🌒<br>[ STAND-ALONE SCRIPT ]</p>
+<p align="center"><br>
+  <img src="https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif" width="700" alt="WAYBAR AUTO-HIDE PREVIEW"/>
+</p>
+
+<p align="center">
+  <a href="#-partial-install-auto-hide-only">PARTIAL-INSTALL</a> •
+  <a href="#-full-install-entire-waybar-config">FULL-INSTALL</a> •
+  <a href="https://github.com/cipher-iso/Cipher-OS">DOTFILES</a>
+</p>
+
+---
+
+## <p align="center">💫 PARTIAL INSTALL 💫<br>[ AUTO-HIDE ONLY ]</p>
+
+### **👥 | STEP 1: [ CLONE REPO ]**
+In Your Terminal:<br>
+`git clone https://github.com/cipher-iso/Waybar-Autohide.git`
+
+<br>
+
+### **📜 | STEP 2: [ COPY SCRIPTS ]**
+Drag the `~/Scripts` directory into your `$HOME` directory.<br>
 > [!NOTE]
-**[AUTO-HIDE PREVIEW]:<br/>**
-![Preview](https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif)
+> *Move all other contents into `~/.config` if you are doing the [Full Installation](#-full-install-entire-waybar-config)*
 
-**STEP 1:</br>** git clone https://github.com/cipher-iso/Waybar-Autohide.git<br/></br>
-**STEP 2:</br>** Drag '`Scripts`' into your `$HOME` Directory<br/>*`You will not need the other contents, unless you are doing the FULL INSTALL below.`*</br></br>
-**STEP 3:</br>** Create These Lines in your Waybar's 'config.jsonc'<br/>
+<br>
 
-	"on-sigusr1": "hide",
-	"on-sigusr2": "show",
-	"start_hidden": false,
-	"reload_style_on_change": true,
-	"layer": "top",
-	"position": "top",
-	"gtk-layer-shell": true,
-	"exclusive": true,
+### **🧩 | STEP 3: [ WAYBAR CONFIG ]**
+Add the following lines to your Waybar `config.jsonc`:
 
-**STEP 4: Run the Script in Background<br/>**
-- `hyprctl dispatch exec ~/Scripts/WaybarAutohide &`<br/>
-  OR [In your Hyprland.conf]<br/>
-- `exec-once = ~/Scripts/WaybarAutohide`<br/><br/>
-	
-**STEP 5: [OPTIONAL]** Add Toggle-Module<br/>
-Export 'waybar/WaybarLockModule' from the repo into your Waybar's<br/>
-config directory, then create the module within your 'config.jsonc'.
-
-	"custom/barlock": {
-		"exec": "~/.config/waybar/WaybarLockModule",
-   		"interval": 1,
-   		"format": "{}",
-   		"return-type": "json",
-   		"on-click": "~/Scripts/ToggleWaybar"
-   	}
+    "on-sigusr1": "hide",
+    "on-sigusr2": "show",
+    "start_hidden": false,
+    "reload_style_on_change": true,
+    "layer": "top",
+    "position": "top",
+    "gtk-layer-shell": true,
+    "exclusive": true,
 
 > [!WARNING]  
-> RESTART WAYBAR AFTER RUNNING THIS SCRIPT,<br/>
-> OTHERWISE IT WILL NOT WORK!
+> **RESTART WAYBAR AFTER THIS STEP!**  
+> Otherwise, this will not work.
 
- <br/>
+<br>
 
-# 🌟 FULL INSTALL: [ENTIRE WAYBAR CONFIG]
-> [!IMPORTANT]  
-> **If you want to install my entire Waybar config, then follow the steps below.**
+### **▶️ | STEP 4: [ RUN SCRIPT ]**
+Execute script in background:
 
-**STEP 6:**<br/>
-Drag all other contents into your '`$HOME/.config/`' directory<br/>
-  
-**STEP 7:**<br/>
-Install necessary packages<br/>
-`sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman`<br/>
-`yay -S --needed nmgui-bin`
+    hyprctl dispatch exec ~/Scripts/WaybarAutohide &
 
-**STEP 8:**<br/>
-Create a custom `$PATH` in your `.bashrc`<br/>
-	`export PATH="$HOME/Scripts:$PATH"`
+***OR*** in `hyprland.conf`:
 
-<br/>
+    exec-once = ~/Scripts/WaybarAutohide
 
-# ✨ STAR HISTORY:
+<br>
+
+### **🔁 | STEP 5: [ TOGGLE MODULE - OPT ]**
+Export [`WaybarLockModule`](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/WaybarLockModule) into `~/.config/waybar`,  
+and create a *toggle* module in `waybar/config.jsonc`:
+
+    "custom/barlock": {
+      "exec": "~/.config/waybar/WaybarLockModule",
+      "interval": 1,
+      "format": "{}",
+      "return-type": "json",
+      "on-click": "~/Scripts/ToggleWaybar"
+    }
+
+---
+
+## <p align="center">🌟 FULL INSTALL 🌟<br>[ ENTIRE WAYBAR CONFIG ]</p>
+
+### **📂 | STEP 6: [ IMPORT FILES ]**
+Drag all remaining contents into your<br>
+`$HOME/.config` directory.
+
+<br>
+
+### **📦 | STEP 7: [ DEPENDENCIES ]**
+Install required packages:
+
+    sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman
+
+    yay -S --needed nmgui-bin
+
+<br>
+
+### **📝 | STEP 8: [ PATH EXPORT ]**
+Add this to your `.bashrc` or `shell`:
+
+    export PATH="$HOME/Scripts:$PATH"
+
+---
+
+## <p align="center">✨ STAR HISTORY ✨</p>
 
 <a href="https://www.star-history.com/#cipher-iso/Waybar-Autohide&cipher-iso/dotfiles&type=date&legend=top-left">
  <picture>
