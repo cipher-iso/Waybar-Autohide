@@ -4,8 +4,8 @@
 </p>
 
 <p align="center">
-  <a href="#-partial-install-auto-hide-only">PARTIAL-INSTALL</a> •
-  <a href="#-full-install-entire-waybar-config">FULL-INSTALL</a> •
+  <a href="https://github.com/cipher-iso/Waybar-Autohide?tab=readme-ov-file#-partial-install--auto-hide-only-">PARTIAL-INSTALL</a> •
+  <a href="https://github.com/cipher-iso/Waybar-Autohide?tab=readme-ov-file#-full-install--entire-waybar-config-">FULL-INSTALL</a> •
   <a href="https://github.com/cipher-iso/Cipher-OS">DOTFILES</a>
 </p>
 
