@@ -1,4 +1,4 @@
-# <p align="center">🌘 WAYBAR AUTO-HIDE 🌒<br>[ STAND-ALONE SCRIPT ]</p>
+# <p align="center">🌘 WAYBAR AUTO-HIDE 🌒<br>[ A SIMPLE BASH SCRIPT ]</p>
 <p align="center"><br>
   <img src="https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif" width="700" alt="WAYBAR AUTO-HIDE PREVIEW"/>
 </p>
