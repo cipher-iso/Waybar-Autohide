@@ -67,6 +67,10 @@ and create a *toggle* module in `waybar/config.jsonc`:
       "on-click": "~/Scripts/ToggleWaybar"
     }
 
+Add this module to your `modules-left`/`center`/`right`, example:
+
+	"modules-left": ["custom/barlock"]
+  
 ---
 
 ## <p align="center">🌟 FULL INSTALL 🌟<br>[ ENTIRE WAYBAR CONFIG ]</p>
