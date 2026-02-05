@@ -13,10 +13,10 @@
 	"margin-top": 0,
 	"modules-left": ["group/expand","cpu","temperature","memory","custom/barlock","custom/updates"],
 	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio"],
-	"modules-right": ["custom/screenshare","bluetooth","network","clock","custom/lock"],
+	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
 /* POWER MENU - EXPANDER */
         "custom/expand": {
-            	"format": "<span font='20'> </span>",
+            	"format": " ",
 		"exec": "Gamma",
 		"interval": 1,
 		"return-type": "json",
@@ -41,14 +41,14 @@
 		"on-scroll-down": ""
 	},
 	"custom/reboot": {
-		"format": "  ",
+		"format": "  ",
 		"on-click": "systemctl reboot",
 		"tooltip-format": "[ REBOOT SYSTEM ]",
 		"on-scroll-up": "",
 		"on-scroll-down": ""
 	},
 	"custom/logout": {
-		"format": "   ",
+		"format": "   ",
 		"on-click": "hyprctl dispatch exit",
 		"tooltip-format": "[ END SESSION ]",
 		"on-scroll-up": "",
@@ -104,21 +104,33 @@
 	},
 /* HYPRLAND WORKSPACES */
 	"hyprland/workspaces": {
-		"persistent-workspaces": {"*": 9},
-		"show-special": false,
+	/*"ignore-workspaces": ["(special:)?media"],*/
+		"show-special": true,
+		"special-visible-only": true,
 		"on-scroll-up": "hyprctl dispatch workspace e+1",
 		"on-scroll-down": "hyprctl dispatch workspace e-1",
 		"format":"{icon}",
-		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "S"}
+		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "","media": ""}
 	},
 /* MICROPHONE MODULE */
 	"pulseaudio": {
-		"on-click": "swayosd-client --input-volume mute-toggle",
-		"on-click-middle": "pavucontrol-qt",
+		"on-click": "hyprctl dispatch togglespecialworkspace media",
+		"on-click-right": "swayosd-client --input-volume mute-toggle",
     		"format": "{format_source}",
     		"format-source": "",
     		"format-source-muted": "",
 		"tooltip-format": "[ VOLUME {volume}% ]"
+	},
+/* IDLE INHIBITOR */
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "[ 󰚭 ]",
+			"deactivated": "[ 󰞌 ]",
+		},
+		"timeout": 30.5,
+		"tooltip-format-activated": "[ IDLE-INHIBITOR ACTIVE ]",
+		"tooltip-format-deactivated": "[ IDLE-INHIBITOR INACTIVE ]"
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
@@ -131,9 +143,9 @@
 /* BLUETOOTH & NETWORK MODULES */
 	"bluetooth": {
 		"interval": 3,
-		"on-click": "ToggleBluetooth",
-		"on-click-right": "blueman-manager",
-		"format": "[ 󰂱 ]",
+		"on-click": "blueman-manager",
+		"on-click-right": "ToggleBluetooth",
+		"format": "[  ]",
 		"format-off": "[ 󰂲 ]",
 		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
 		"tooltip-format-connected": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED\n\n{device_enumerate} ]",
@@ -142,8 +154,8 @@
 	},
 	"network": {
 		"interval": 300,
-		"on-click": "nmcli radio wifi | grep -q 'enabled' && nmcli radio wifi off || nmcli radio wifi on",
-		"on-click-right": "nmgui",
+		"on-click": "nmgui",
+		"on-click-right": "nmcli radio wifi | grep -q 'enabled' && nmcli radio wifi off || nmcli radio wifi on",
 		"format": "[ {icon} ]",
 		"format-wifi": "[ {icon} ]",
 		"format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
@@ -160,7 +172,7 @@
 /* CLOCK & CALENDER MODULE */
 	"clock": {
 		"interval": 1,
-		"format": "[ {:%m|%d  %I:%M:%S %p} ]",
+		"format": "[ {:%m.%d  %I:%M:%S %p} ]",
 		"tooltip-format": "<tt><big>{calendar}</big></tt>",
 		"calendar": {
 		"mode"          : "month",
