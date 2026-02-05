@@ -4,7 +4,7 @@
 /* GLOBAL DEFAULTS */
 * {   	all:unset;
 	font-family: JetBrainsMono Nerd Font Propo;
-    	font-weight: 900;
+    	font-weight: 700;
     	font-size: 22px;
     	background-color: transparent; }
 
@@ -20,22 +20,25 @@ tooltip label 	{ color: @fg; margin: 10; font-size: 16px; font-weight: 700; }
 	background: linear-gradient(135deg, @grad1, @grad2);
 	border-radius: 30px;
 	margin: 8px;
-	margin-left: 15;
-	margin-right: 15;	}
+	margin-left: 20;
+	margin-right: 20;	}
 #workspaces button {
     	color: @bg;
-    	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2);
+    	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2), background 0s ease, color 0.1s ease;
     	padding: 0 10px;
 	border-radius: 30px;
-	margin: 3px 3px; 	}
+	margin: 4px 4px; 	}
+#workspaces button.empty { color: @accent3; }
 #workspaces button.focused,
 #workspaces button.active {
 	background: @bg;
     	color: @fg;
-    	padding: 0 15px;
+    	padding: 0 10px;
     	min-width: 50px;	}
-#workspaces button.empty	{ color: @accent3; }
-#workspaces button:hover	{ color: @fg2; background-color: @bg; min-width: 50px; }
+#workspaces button:hover {
+	color: @fg2;
+	background-color: @bg;
+	min-width: 60px; }
 
 /* PRIMARY COLOR & INTERACTIVE HOVER */
 #custom-expand,
@@ -43,6 +46,7 @@ tooltip label 	{ color: @fg; margin: 10; font-size: 16px; font-weight: 700; }
 #custom-updates:hover,
 #network:hover,
 #bluetooth:hover,
+#idle_inhibitor:hover,
 #custom-screenshare:hover,
 #custom-barlock:hover,
 #pulseaudio:hover,
@@ -72,7 +76,42 @@ tooltip label 	{ color: @fg; margin: 10; font-size: 16px; font-weight: 700; }
 #custom-updates,
 #network,
 #bluetooth,
+#idle_inhibitor,
 #custom-screenshare,
 #custom-barlock,
 #pulseaudio,
-#wireplumber		{ color: @accent1; padding: 5px; }
+#wireplumber		{ color: @accent1; padding: 5px; transition: color 0.2s ease}
+
+#custom-updates,
+#network,
+#bluetooth,
+#idle_inhibitor,
+#custom-screenshare,
+#custom-barlock,
+#pulseaudio,
+#wireplumber,
+#custom-power,
+#custom-reboot,
+#custom-logout,
+#custom-expand,
+#custom-lock
+{ transition: color 0.25s ease, font-size 0.05s ease; font-size: 100% }
+
+#custom-updates:hover,
+#network:hover,
+#bluetooth:hover,
+#idle_inhibitor:hover,
+#custom-screenshare:hover,
+#custom-barlock:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#custom-power:hover,
+#custom-reboot:hover,
+#custom-logout:hover,
+#custom-expand:hover,
+#custom-lock:hover
+{ font-size: 120% }
+
+#custom-expand { font-size: 110% }
+#custom-expand:hover { font-size: 140% }
+*:hover { font-weight: 900 }
