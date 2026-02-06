@@ -114,8 +114,8 @@
 	},
 /* MICROPHONE MODULE */
 	"pulseaudio": {
-		"on-click": "hyprctl dispatch togglespecialworkspace media",
-		"on-click-right": "swayosd-client --input-volume mute-toggle",
+		"on-click": "swayosd-client --input-volume mute-toggle",
+		"on-click-right": "hyprctl dispatch togglespecialworkspace media",
     		"format": "{format_source}",
     		"format-source": "",
     		"format-source-muted": "",
