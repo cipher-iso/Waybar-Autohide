@@ -11,9 +11,14 @@
 	"margin-left": 0,
 	"margin-right": 0,
 	"margin-top": 0,
-	"modules-left": ["group/expand","cpu","temperature","memory","custom/togglewaybar","custom/updates"],
+	"modules-left": ["custom/autohide","group/expand","cpu","temperature","memory","custom/togglewaybar","custom/updates"],
 	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio#input"],
 	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
+/* AUTOHIDE - STARTUP */
+	"custom/autohide": {
+		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
+		"interval": "once",
+	},
 /* POWER MENU - EXPANDER */
         "custom/expand": {
             	"format": "  ",
@@ -75,20 +80,20 @@
         },
 /* WAYBAR LOCK */
 	"custom/togglewaybar": {
-   		"exec": "~/.config/waybar/Modules/ToggleWaybar",
+   		"exec": "~/.config/waybar/Modules/WaybarAutoHide module",
     		"interval": 1,
     		"format": "[ {} ]",
     		"return-type": "json",
-    		"on-click": "ToggleWaybar"
+    		"on-click": "~/.config/waybar/Modules/WaybarAutoHide toggle"
 	},
 /* SYSTEM UPDATES MODULE */
 	"custom/updates": {
-    		"exec": "~/.config/waybar/Modules/Updates",
+    		"exec": "~/.config/waybar/Modules/Update module",
     		"format": "{}",
     		"return-type": "json",
     		"interval": 300,
     		"tooltip": true,
-    		"on-click": "kitty --class updates -e RunUpdates -arch -tooltip"
+    		"on-click": "kitty --class Update ~/.config/waybar/Modules/Update"
 	},
 /* AUDIO MODULE */
 	"wireplumber": {
@@ -134,8 +139,8 @@
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
- 		"exec": "~/.config/waybar/Modules/Screenshare",
-  		"on-click": "ToggleScreenShare toggle",
+ 		"exec": "~/.config/waybar/Modules/ToggleScreenshare module",
+  		"on-click": "~/.config/waybar/Modules/ToggleScreenShare",
   		"interval": 1,
    		"format": "[ {} ]",
 		"return-type": "json"
@@ -144,7 +149,7 @@
 	"bluetooth": {
 		"interval": 3,
 		"on-click": "blueman-manager",
-		"on-click-right": "ToggleBluetooth",
+		"on-click-right": "~/.config/waybar/Modules/ToggleBluetooth",
 		"format": "[  ]",
 		"format-off": "[ 󰂲 ]",
 		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
@@ -189,7 +194,7 @@
 	},
 /* LOCKSCREEN MODULE */
 	"custom/lock": {
-		"on-click": "LockScreen",
+		"on-click": "~/.config/waybar/Modules/LockScreen",
 		"format": "  ",
 		"tooltip-format": "[ LOCK SESSION ]"
 	}
