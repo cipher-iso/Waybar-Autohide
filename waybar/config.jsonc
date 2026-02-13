@@ -11,20 +11,20 @@
 	"margin-left": 0,
 	"margin-right": 0,
 	"margin-top": 0,
-	"modules-left": ["group/expand","cpu","temperature","memory","custom/barlock","custom/updates"],
-	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio"],
+	"modules-left": ["group/expand","cpu","temperature","memory","custom/togglewaybar","custom/updates"],
+	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio#input"],
 	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
 /* POWER MENU - EXPANDER */
         "custom/expand": {
-            	"format": " ",
-		"exec": "Gamma",
+            	"format": "  ",
+		"exec": "~/.config/waybar/Modules/Gamma",
 		"interval": 1,
 		"return-type": "json",
             	"tooltip": true,
 		"on-click-right": "hyprctl hyprsunset gamma 100",
 		"on-click-middle": "",
-		"on-scroll-up": "Gamma up",
-		"on-scroll-down": "Gamma down"
+		"on-scroll-up": "~/.config/waybar/Modules/Gamma up",
+		"on-scroll-down": "~/.config/waybar/Modules/Gamma down"
         },
         "group/expand": {
             	"orientation": "horizontal",
@@ -74,8 +74,8 @@
 		"tooltip": false
         },
 /* WAYBAR LOCK */
-	"custom/barlock": {
-   		"exec": "~/.config/waybar/WaybarLockModule",
+	"custom/togglewaybar": {
+   		"exec": "~/.config/waybar/Modules/ToggleWaybar",
     		"interval": 1,
     		"format": "[ {} ]",
     		"return-type": "json",
@@ -83,7 +83,7 @@
 	},
 /* SYSTEM UPDATES MODULE */
 	"custom/updates": {
-    		"exec": "WaybarUpdates",
+    		"exec": "~/.config/waybar/Modules/Updates",
     		"format": "{}",
     		"return-type": "json",
     		"interval": 300,
@@ -104,22 +104,23 @@
 	},
 /* HYPRLAND WORKSPACES */
 	"hyprland/workspaces": {
-	/*"ignore-workspaces": ["(special:)?media"],*/
 		"show-special": true,
 		"special-visible-only": true,
 		"on-scroll-up": "hyprctl dispatch workspace e+1",
 		"on-scroll-down": "hyprctl dispatch workspace e-1",
 		"format":"{icon}",
-		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","desktop": "","magic": "","media": ""}
+		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","magic": "","media": ""}
 	},
 /* MICROPHONE MODULE */
-	"pulseaudio": {
+	"pulseaudio#input": {
 		"on-click": "swayosd-client --input-volume mute-toggle",
 		"on-click-right": "hyprctl dispatch togglespecialworkspace media",
+		"on-scroll-up": "swayosd-client --input-volume 5",
+		"on-scroll-down": "swayosd-client --input-volume -5",
     		"format": "{format_source}",
     		"format-source": "",
     		"format-source-muted": "",
-		"tooltip-format": "[ VOLUME {volume}% ]"
+		"tooltip-format": "[ VOLUME {source_volume}% ]"
 	},
 /* IDLE INHIBITOR */
 	"idle_inhibitor": {
@@ -128,13 +129,12 @@
 			"activated": "[ 󰚭 ]",
 			"deactivated": "[ 󰞌 ]",
 		},
-		"timeout": 30.5,
 		"tooltip-format-activated": "[ IDLE-INHIBITOR ACTIVE ]",
 		"tooltip-format-deactivated": "[ IDLE-INHIBITOR INACTIVE ]"
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
- 		"exec": "ToggleScreenShare",
+ 		"exec": "~/.config/waybar/Modules/Screenshare",
   		"on-click": "ToggleScreenShare toggle",
   		"interval": 1,
    		"format": "[ {} ]",
@@ -190,7 +190,7 @@
 /* LOCKSCREEN MODULE */
 	"custom/lock": {
 		"on-click": "LockScreen",
-		"format": " ",
+		"format": "  ",
 		"tooltip-format": "[ LOCK SESSION ]"
 	}
 }
