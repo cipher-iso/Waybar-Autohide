@@ -1,0 +1,13 @@
+#!/bin/bash
+
+STATE_FILE="$HOME/Scripts/.Screenshare-ON"
+
+if [ ! -f "$STATE_FILE" ]; then
+	ICON=""
+	TOOLTIP="[ SCREEN - INCOGNITO ]"
+else
+	ICON=""
+	TOOLTIP="[ SCREEN - VISIBLE ]"
+fi
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$ICON" "$TOOLTIP"

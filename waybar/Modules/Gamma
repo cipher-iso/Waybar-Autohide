@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Gamma Steps %
+STEP=10
+# Minimum Gamma % [Do NOT Set to 0]
+MIN=10
+
+# Output Current Gamma % 
+CURRENT=$(hyprctl hyprsunset gamma | awk '{printf "%d\n", $NF}')
+
+# Function
+[[ -z "$CURRENT" || "$CURRENT" -lt 1 ]] && CURRENT=$MIN
+
+case "$1" in
+    up)
+        NEW=$((CURRENT + STEP))
+        hyprctl hyprsunset gamma "$NEW"
+        CURRENT=$NEW
+        ;;
+    down)
+        NEW=$((CURRENT - STEP))
+        (( NEW < MIN )) && NEW=$MIN
+        hyprctl hyprsunset gamma "$NEW"
+        CURRENT=$NEW
+        ;;
+esac
+
+# Waybar Tooltip
+printf '{"text":"","tooltip":"[ GAMMA %d%% ]"}\n' "$CURRENT"
+

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+STATE_FILE="$HOME/.config/waybar/Bar_Visible"
+
+if [ -f "$STATE_FILE" ]; then
+	ICON=""
+	TOOLTIP="[ WAYBAR - LOCKED ]"
+else
+	ICON=""
+	TOOLTIP="[ WAYBAR - UNLOCKED ]"
+fi
+
+printf '{"text":"%s","tooltip":"%s"}\n' "$ICON" "$TOOLTIP"
