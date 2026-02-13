@@ -17,7 +17,7 @@
 /* AUTOHIDE - STARTUP */
 	"custom/autohide": {
 		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
-		"interval": "once",
+		"interval": "once"
 	},
 /* POWER MENU - EXPANDER */
         "custom/expand": {
@@ -93,7 +93,8 @@
     		"return-type": "json",
     		"interval": 300,
     		"tooltip": true,
-    		"on-click": "kitty --class Update ~/.config/waybar/Modules/Update"
+    		"on-click": "kitty --class Update ~/.config/waybar/Modules/Update",
+			"on-click-right": "kitty --class Update ~/.config/waybar/Modules/ClearCache"
 	},
 /* AUDIO MODULE */
 	"wireplumber": {
