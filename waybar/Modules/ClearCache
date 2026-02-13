@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+export SUDO_PROMPT=$'\e[1;38;2;0;255;64m  > ENTER PASSPHRASE: \e[0m'
+
+set -e
+
+# 1. Pacman cache (keep 3 versions of each package)
+printf "\e[1;38;2;0;255;64m┏━  ┏┓┏┓┏┓┳┳┓┏┓┳┓  ┏┓┏┓┏┓┓┏┏┓  ━┓
+┃   ┃┃┣┫┃ ┃┃┃┣┫┃┃  ┃ ┣┫┃ ┣┫┣    ┃
+┗━  ┣┛┛┗┗┛┛ ┗┛┗┛┗  ┗┛┛┗┗┛┛┗┗┛  ━┛\e[0m\n"
+
+sudo paccache -r -k3
+sudo paccache -ruk3
+
+# 2. Remove orphan packages (unused dependencies) with Pacman
+orphans=$(pacman -Qdtq || true)
+
+if [[ -n "$orphans" ]]; then
+  printf "\e[38;2;235;250;250m[ ORPHAN PACKAGES: %s ]\e[0m\n" "$orphans"
+  printf "\e[1;38;2;0;255;64m[ REMOVE ORPHANS? <y/N> ] \e[0m"
+  read -r confirm
+  echo
+  if [[ "$confirm" == [yY] ]]; then
+    sudo pacman -Rns -- $orphans
+  else
+    :
+  fi
+else
+  printf "\e[38;2;235;250;250m[ NO PACMAN-ORPHANS FOUND ]\e[0m\n"
+fi
+
+# 3. Clean Flatpak cache and remove unused runtimes
+printf "\e[1;38;2;0;255;64m┏━  ┏┓┓ ┏┓┏┳┓┏┓┏┓┓┏┓  ┏┓┏┓┏┓┓┏┏┓  ━┓
+┃   ┣ ┃ ┣┫ ┃ ┃┃┣┫┃┫   ┃ ┣┫┃ ┣┫┣    ┃
+┗━  ┻ ┗┛┛┗ ┻ ┣┛┛┗┛┗┛  ┗┛┛┗┗┛┛┗┗┛  ━┛\e[0m\n"
+
+flatpak uninstall --unused -y
+flatpak repair
+
+# 4. Clean Yay cache
+yay -Sc --noconfirm
+
+# 5. Remove orphan packages with Yay
+printf "\e[1;38;2;0;255;64m┏━  ┳┳┏┓┏┓┳┓  ┳┓┏┓┏┓┏┓  ┏┓┏┓┏┓┓┏┏┓  ━┓
+┃   ┃┃┗┓┣ ┣┫━━┣┫┣ ┃┃┃┃  ┃ ┣┫┃ ┣┫┣    ┃
+┗━  ┗┛┗┛┗┛┛┗  ┛┗┗┛┣┛┗┛  ┗┛┛┗┗┛┛┗┗┛  ━┛\e[0m\n"
+
+yay_orphans=$(yay -Qdtq || true)
+
+if [[ -n "$yay_orphans" ]]; then
+  printf "\e[38;2;235;250;250m[ ORPHAN PACKAGES: %s ]\e[0m\n" "$yay_orphans"
+  printf "\e[1;38;2;0;255;64m[ REMOVE ORPHANS? <y/N> ] \e[0m"
+  read -r confirm_yay
+  echo
+  if [[ "$confirm_yay" == [yY] ]]; then
+    yay -Rns --noconfirm -- $yay_orphans
+  else
+    :
+  fi
+else
+  printf "\e[38;2;235;250;250m[ NO AUR-ORPHANS FOUND ]\e[0m\n"
+fi
+
+printf "\e[1;38;2;0;255;64m┏━  ┏┓┏┓┏┓┓┏┏┓  ┏┓┓ ┏┓┏┓┳┓╻  ━┓
+┃   ┃ ┣┫┃ ┣┫┣   ┃ ┃ ┣ ┣┫┃┃┃   ┃
+┗━  ┗┛┛┗┗┛┛┗┗┛  ┗┛┗┛┗┛┛┗┛┗•  ━┛\e[0m\n"
