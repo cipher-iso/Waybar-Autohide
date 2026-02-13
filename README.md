@@ -20,9 +20,7 @@ In Your Terminal:<br>
 <br>
 
 ### **📜 | STEP 2: [ COPY MODULES ]**
-Copy the [Modules](https://github.com/cipher-iso/Waybar-Autohide/tree/main/waybar/Modules) into your `~/.config/waybar/Modules`<br>
-> [!NOTE]
-> *Move all other contents if you are doing the [Full Installation](https://github.com/cipher-iso/Waybar-Autohide?tab=readme-ov-file#-full-install--entire-waybar-config-)*
+Copy the [WaybarAutoHide Module](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/Modules/WaybarAutoHide) into your `~/.config/waybar/Modules`<br>
 
 <br>
 
@@ -44,18 +42,14 @@ Customize the module as follows:
 	"exec": "~/.config/waybar/Modules/WaybarAutoHide",
 	"interval": "once",
 	},
-	
-> [!WARNING]  
-> **RESTART WAYBAR AFTER THIS STEP!**  
-> Otherwise, this will not work.
 
 <br>
 
 ### **🔁 | STEP 5: [ TOGGLE MODULE - OPT ]**
-Export [`WaybarLockModule`](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/WaybarLockModule) into `~/.config/waybar`,  
-and create a *toggle* module in `waybar/config.jsonc`:
+Create a *`togglewaybar`* module in `waybar/config.jsonc`:<br>
+*[ This will allow you to disable AutoHide when not in-use ]*<br>
 
-    "custom/barlock": {
+    "custom/togglwaybar": {
       "exec": "~/.config/waybar/Modules/WaybarAutoHide module",
       "interval": 1,
       "format": "{}",
@@ -64,15 +58,22 @@ and create a *toggle* module in `waybar/config.jsonc`:
     }
 
 Add this module to your `modules-left`/`center`/`right`,<br>
-*Example: `"modules-left": ["custom/barlock"]`*
+*Example: `"modules-left": ["custom/togglewaybar"]`*
+	
+> [!WARNING]  
+> **RESTART WAYBAR AFTER COMPLETION!**  
+> Otherwise, this will not work.
   
 ---
 
 ## <p align="center">🌟 FULL INSTALL 🌟<br>[ ENTIRE WAYBAR CONFIG ]</p>
 
 ### **📂 | STEP 6: [ IMPORT FILES ]**
-Drag all remaining contents into your<br>
-`$HOME/.config` directory.
+Drag all remaining contents:<br>
+
+*`[ /swayosd, /swaync, /waybar ]`*<br>
+
+into your `$HOME/.config` directory.
 
 <br>
 
