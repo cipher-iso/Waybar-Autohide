@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+STATE_FILE="$HOME/.config/waybar/Modules/.Locked"
+AUTO_FILE="$HOME/.config/waybar/Modules/.Visible"
+POLL_DELAY=0.05
+
+# ----------------------------
+# Shared Functions
+# ----------------------------
+
+get_cursor_y() {
+    hyprctl cursorpos -j | jq '.y'
+}
+
+get_tiled_on_active_ws() {
+    local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}')
+    hyprctl clients | awk -v ws="$ws" '
+        /^Window /{cur_ws="";floating=""}
+        /^\s*workspace:/{cur_ws=$2}
+        /^\s*floating:/{floating=$2}
+        cur_ws==ws && floating==0 {count++;cur_ws=""}
+        END{print count+0}'
+}
+
+focused_special_ws() {
+    hyprctl monitors | awk '
+        BEGIN {focused=0; special=-1}
+        /^Monitor / {focused=0; special=-1}
+        /focused: yes/ {focused=1}
+        /special workspace:/ {special=$3}
+        END {exit !(focused==1 && special != -1 && special != 0)}
+    '
+}
+
+# ----------------------------
+# AUTOHIDE LOOP
+# ----------------------------
+
+autohide_mode() {
+
+    # Prevent duplicates
+    pgrep -f "WaybarAutoHide$" | grep -v $$ >/dev/null && exit
+
+    bar_visible=false
+
+    # 🔥 Immediate evaluation (fixes toggle-off delay)
+    Y=$(get_cursor_y)
+    tiled=$(get_tiled_on_active_ws)
+
+    if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
+        pkill -SIGUSR2 waybar
+        bar_visible=true
+        touch "$AUTO_FILE"
+    elif [ "$tiled" -eq 1 ] && [ "$Y" -gt 130 ]; then
+        pkill -SIGUSR1 waybar
+        bar_visible=false
+        rm -f "$AUTO_FILE"
+    fi
+
+    while true; do
+        Y=$(get_cursor_y)
+        tiled=$(get_tiled_on_active_ws)
+
+        if focused_special_ws; then
+            if [ "$bar_visible" = false ]; then
+                pkill -SIGUSR2 waybar
+                bar_visible=true
+                touch "$AUTO_FILE"
+            fi
+            sleep "$POLL_DELAY"
+            continue
+        fi
+
+        if [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
+            if [ "$bar_visible" = false ]; then
+                pkill -SIGUSR2 waybar
+                bar_visible=true
+                touch "$AUTO_FILE"
+            fi
+            sleep "$POLL_DELAY"
+            continue
+        fi
+
+        # 🔹 Original hover logic restored exactly
+        if [ "$bar_visible" = false ] && [ "$Y" -le 20 ]; then
+            pkill -SIGUSR2 waybar
+            bar_visible=true
+            touch "$AUTO_FILE"
+        elif [ "$bar_visible" = true ] && [ "$Y" -gt 130 ]; then
+            pkill -SIGUSR1 waybar
+            bar_visible=false
+            rm -f "$AUTO_FILE"
+        fi
+
+        sleep "$POLL_DELAY"
+    done
+}
+
+# ----------------------------
+# TOGGLE MODE
+# ----------------------------
+
+toggle_mode() {
+
+    if [ -f "$STATE_FILE" ]; then
+        # Unlock → relaunch autohide
+
+        rm "$STATE_FILE"
+
+        # Compute tiled and cursor for initial evaluation
+        tiled=$(get_tiled_on_active_ws)
+
+        if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
+            pkill -SIGUSR2 waybar
+    else
+            pkill -SIGUSR1 waybar
+	    sleep 0.5
+        fi
+
+        "$0" &   # start autohide loop
+    else
+        # Lock → kill autohide + force visible
+        touch "$STATE_FILE"
+        pkill -f "WaybarAutoHide$"
+        pkill -SIGUSR2 waybar
+    fi
+}
+# ----------------------------
+# MODULE MODE
+# ----------------------------
+
+module_mode() {
+    if [ -f "$STATE_FILE" ]; then
+        printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
+    else
+        printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
+    fi
+}
+
+# ----------------------------
+# ENTRY
+# ----------------------------
+
+case "$1" in
+    toggle)
+        toggle_mode
+        ;;
+    module)
+        module_mode
+        ;;
+    *)
+        [ -f "$STATE_FILE" ] && exit
+        autohide_mode
+        ;;
+esac
