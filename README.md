@@ -19,39 +19,35 @@ In Your Terminal:<br>
 
 <br>
 
-### **📜 | STEP 2: [ COPY SCRIPTS ]**
-Drag the `~/Scripts` directory into your `$HOME` directory.<br>
+### **📜 | STEP 2: [ COPY MODULES ]**
+Copy the [Modules](https://github.com/cipher-iso/Waybar-Autohide/tree/main/waybar/Modules) into your `~/.config/waybar/Modules`<br>
 > [!NOTE]
-> *Move all other contents into `~/.config` if you are doing the [Full Installation](#-full-install-entire-waybar-config)*
+> *Move all other contents if you are doing the [Full Installation](#-full-install-entire-waybar-config)*
 
 <br>
 
 ### **🧩 | STEP 3: [ WAYBAR CONFIG ]**
 Add the following lines to your Waybar `config.jsonc`:
 
-    "on-sigusr1": "hide",
+	"on-sigusr1": "hide",
     "on-sigusr2": "show",
     "start_hidden": false,
-    "reload_style_on_change": true,
-    "layer": "top",
-    "position": "top",
-    "gtk-layer-shell": true,
-    "exclusive": true,
 
+### **▶️ | STEP 4: [ AUTO-START MODULE ]**
+Add the `"custom/autohide"` module to your `config.jsonc`:<br>
+<br>
+*EXAMPLE: `"modules-left": ["custom/autohide","cpu","temperature"]`*<br>
+
+Customize the module as follows:
+
+	"custom/autohide": {
+	"exec": "~/.config/waybar/Modules/WaybarAutoHide",
+	"interval": "once",
+	},
+	
 > [!WARNING]  
 > **RESTART WAYBAR AFTER THIS STEP!**  
 > Otherwise, this will not work.
-
-<br>
-
-### **▶️ | STEP 4: [ RUN SCRIPT ]**
-Execute script in background:
-
-    hyprctl dispatch exec ~/Scripts/WaybarAutohide &
-
-***OR*** in `hyprland.conf`:
-
-    exec-once = ~/Scripts/WaybarAutohide
 
 <br>
 
@@ -60,16 +56,15 @@ Export [`WaybarLockModule`](https://github.com/cipher-iso/Waybar-Autohide/blob/m
 and create a *toggle* module in `waybar/config.jsonc`:
 
     "custom/barlock": {
-      "exec": "~/.config/waybar/WaybarLockModule",
+      "exec": "~/.config/waybar/Modules/WaybarAutoHide module",
       "interval": 1,
       "format": "{}",
       "return-type": "json",
-      "on-click": "~/Scripts/ToggleWaybar"
+      "on-click": "~/.config/waybar/Modules/WaybarAutoHide toggle"
     }
 
-Add this module to your `modules-left`/`center`/`right`, example:
-
-	"modules-left": ["custom/barlock"]
+Add this module to your `modules-left`/`center`/`right`,<br>
+*Example: `"modules-left": ["custom/barlock"]`*
   
 ---
 
@@ -87,13 +82,6 @@ Install required packages:
     sudo pacman -S --needed waybar kitty swayosd swaync hyprlock hyprsunset pavucontrol-qt blueman
 
     yay -S --needed nmgui-bin
-
-<br>
-
-### **📝 | STEP 8: [ PATH EXPORT ]**
-Add this to your `.bashrc` or `shell`:
-
-    export PATH="$HOME/Scripts:$PATH"
 
 ---
 
