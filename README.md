@@ -22,7 +22,7 @@ In Your Terminal:<br>
 ### **📜 | STEP 2: [ COPY MODULES ]**
 Copy the [Modules](https://github.com/cipher-iso/Waybar-Autohide/tree/main/waybar/Modules) into your `~/.config/waybar/Modules`<br>
 > [!NOTE]
-> *Move all other contents if you are doing the [Full Installation](#-full-install--entire-waybar-config)*
+> *Move all other contents if you are doing the [Full Installation](https://github.com/cipher-iso/Waybar-Autohide?tab=readme-ov-file#-full-install--entire-waybar-config-)*
 
 <br>
 
