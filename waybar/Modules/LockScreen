@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Obtain Discord's PID
+pid=$(hyprctl clients -j | jq -r '.[] | select((.class|ascii_downcase)=="discord") | .pid')
+
+# Pause Discord [if running]
+if [ -n "$pid" ]; then kill -s SIGSTOP "$pid" 2>/dev/null; fi
+
+# Lockscreen
+hyprlock
+
+# Resume Discord [if running]
+if [ -n "$pid" ]; then kill -s SIGCONT "$pid" 2>/dev/null; fi
