@@ -4,9 +4,7 @@ STATE_FILE="$HOME/.config/waybar/Modules/.Locked"
 AUTO_FILE="$HOME/.config/waybar/Modules/.Visible"
 POLL_DELAY=0.05
 
-# ----------------------------
-# Shared Functions
-# ----------------------------
+# [ 'GET' FUNCTIONS ]
 
 get_cursor_y() {
     hyprctl cursorpos -j | jq '.y'
@@ -32,9 +30,7 @@ focused_special_ws() {
     '
 }
 
-# ----------------------------
-# AUTOHIDE LOOP
-# ----------------------------
+# [ AUTO-HIDE > IFs ]
 
 autohide_mode() {
 
@@ -80,8 +76,6 @@ autohide_mode() {
             sleep "$POLL_DELAY"
             continue
         fi
-
-        # 🔹 Original hover logic restored exactly
         if [ "$bar_visible" = false ] && [ "$Y" -le 20 ]; then
             pkill -SIGUSR2 waybar
             bar_visible=true
@@ -96,18 +90,12 @@ autohide_mode() {
     done
 }
 
-# ----------------------------
-# TOGGLE MODE
-# ----------------------------
+# [ TOGGLE-FUNCTION ]
 
 toggle_mode() {
 
     if [ -f "$STATE_FILE" ]; then
-        # Unlock → relaunch autohide
-
         rm "$STATE_FILE"
-
-        # Compute tiled and cursor for initial evaluation
         tiled=$(get_tiled_on_active_ws)
 
         if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
@@ -119,15 +107,14 @@ toggle_mode() {
 
         "$0" &   # start autohide loop
     else
-        # Lock → kill autohide + force visible
+        # Lock > kill autohide + force visible
         touch "$STATE_FILE"
         pkill -f "WaybarAutoHide$"
         pkill -SIGUSR2 waybar
     fi
 }
-# ----------------------------
-# MODULE MODE
-# ----------------------------
+
+# [ WAYBAR MODULE INFO ]
 
 module_mode() {
     if [ -f "$STATE_FILE" ]; then
@@ -137,9 +124,7 @@ module_mode() {
     fi
 }
 
-# ----------------------------
-# ENTRY
-# ----------------------------
+# [ MODE-SETTING ]
 
 case "$1" in
     toggle)
