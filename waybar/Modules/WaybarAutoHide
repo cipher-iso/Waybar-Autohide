@@ -36,10 +36,7 @@ autohide_mode() {
 
     # Prevent duplicates
     pgrep -f "WaybarAutoHide$" | grep -v $$ >/dev/null && exit
-
     bar_visible=false
-
-    # 🔥 Immediate evaluation (fixes toggle-off delay)
     Y=$(get_cursor_y)
     tiled=$(get_tiled_on_active_ws)
 
