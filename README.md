@@ -43,6 +43,10 @@ Customize the module as follows:
 	"interval": "once",
 	},
 
+Similarly, if you would like it separate from Waybar, you may use an `exec-once` in your Hyprland.conf:
+
+    exec-once: ~/.config/waybar/Modules/WaybarAutoHide
+
 <br>
 
 ### **🔁 | STEP 5: [ TOGGLE MODULE - OPT ]**
