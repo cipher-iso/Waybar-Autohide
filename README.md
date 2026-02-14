@@ -1,6 +1,6 @@
-# <p align="center">🌘 WAYBAR AUTO-HIDE 🌒<br>[ A SIMPLE BASH SCRIPT ]</p>
+# <p align="center">⚡️ WAYBAR [AUTO-HIDE] ⚡️<br>- A BASH SCRIPT -</p>
 <p align="center"><br>
-  <img src="https://raw.githubusercontent.com/cipher-xui/Waybar-Autohide/main/Preview.gif" width="700" alt="WAYBAR AUTO-HIDE PREVIEW"/>
+  <img src="https://github.com/cipher-iso/Waybar-Autohide/blob/main/Waybar%20Demonstration.gif" width="700" alt="WAYBAR AUTO-HIDE PREVIEW"/>
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 
 ---
 
-## <p align="center">💫 PARTIAL INSTALL 💫<br>[ AUTO-HIDE ONLY ]</p>
+## <p align="center">✨ PARTIAL INSTALL ✨<br>[ AUTO-HIDE ONLY ]</p>
 
 ### **👥 | STEP 1: [ CLONE REPO ]**
 In Your Terminal:<br>
@@ -19,12 +19,12 @@ In Your Terminal:<br>
 
 <br>
 
-### **📜 | STEP 2: [ COPY MODULES ]**
+### **🧩 | STEP 2: [ COPY MODULES ]**
 Copy the [WaybarAutoHide Module](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/Modules/WaybarAutoHide) into your `~/.config/waybar/Modules`<br>
 
 <br>
 
-### **🧩 | STEP 3: [ WAYBAR CONFIG ]**
+### **📑 | STEP 3: [ WAYBAR CONFIG ]**
 Add the following lines to your Waybar `config.jsonc`:
 
 	"on-sigusr1": "hide",
@@ -72,7 +72,7 @@ Add this module to your `modules-left`/`center`/`right`,<br>
 
 ## <p align="center">🌟 FULL INSTALL 🌟<br>[ ENTIRE WAYBAR CONFIG ]</p>
 
-### **📂 | STEP 6: [ IMPORT FILES ]**
+### **📥 | STEP 6: [ IMPORT FILES ]**
 Drag all remaining contents:<br>
 
 *`[ /swayosd, /swaync, /waybar ]`*<br>
