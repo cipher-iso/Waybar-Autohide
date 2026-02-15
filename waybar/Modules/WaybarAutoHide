@@ -2,101 +2,88 @@
 
 STATE_FILE="$HOME/.config/waybar/Modules/.Locked"
 AUTO_FILE="$HOME/.config/waybar/Modules/.Visible"
-POLL_DELAY=0.2
+POLL_DELAY=0.10
 
 # [ GREP FUNCTIONS ]
 
-get_cursor_y() {
-	hyprctl cursorpos | cut -d ',' -f 2-
-}
+get_cursor_y() { hyprctl cursorpos | cut -d ',' -f 2- ;}
 
 get_tiled_on_active_ws() {
-    local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}')
-    hyprctl clients | awk -v ws="$ws" '
-        /^Window /{cur_ws="";floating=""}
-        /^\s*workspace:/{cur_ws=$2}
-        /^\s*floating:/{floating=$2}
-        cur_ws==ws && floating==0 {count++;cur_ws=""}
-        END{print count+0}'
-}
+	local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}')
+	hyprctl clients | awk -v ws="$ws" '
+          /^Window /{cur_ws="";floating=""}
+          /^\s*workspace:/{cur_ws=$2}
+          /^\s*floating:/{floating=$2}
+          cur_ws==ws && floating==0 {count++;cur_ws=""}
+          END{print count+0}' ;}
 
 focused_special_ws() {
-    hyprctl monitors | awk '
-        BEGIN {focused=0; special=-1}
-        /^Monitor / {focused=0; special=-1}
-        /focused: yes/ {focused=1}
-        /special workspace:/ {special=$3}
-        END {exit !(focused==1 && special != -1 && special != 0)}
-    '
-}
+	hyprctl monitors | awk '
+          BEGIN {focused=0; special=-1}
+          /^Monitor / {focused=0; special=-1}
+          /focused: yes/ {focused=1}
+          /special workspace:/ {special=$3}
+          END {exit !(focused==1 && special != -1 && special != 0)}' ;}
 
 # [ AUTO-HIDE WAYBAR ]
 
-autohide_mode() {
-    pgrep -f "WaybarAutoHide$" | grep -v $$ >/dev/null && exit
-    bar_visible=false
+autohide_mode() { pgrep -f "WaybarAutoHide$" | grep -v $$ >/dev/null && exit; bar_visible=false
 
-    while true; do
+while true; do
         Y=$(get_cursor_y)
         tiled=$(get_tiled_on_active_ws)
         special=$(focused_special_ws && echo 1 || echo 0)
 
-        if (( special )); then
-            if ! $bar_visible; then
-                pkill -SIGUSR2 waybar
-                bar_visible=true
-                touch "$AUTO_FILE"
-            fi
-        elif (( tiled==0 || tiled>=2 || (tiled==1 && Y<=20) )); then
-            if ! $bar_visible; then
-                pkill -SIGUSR2 waybar
-                bar_visible=true
-                touch "$AUTO_FILE"
-            fi
-        elif (( tiled==1 && Y>130 )); then
-            if $bar_visible; then
-                pkill -SIGUSR1 waybar
-                bar_visible=false
-                rm -f "$AUTO_FILE"
-            fi
-        fi
+if (( special )); then
+        ! $bar_visible 
+        pkill -SIGUSR2 waybar
+        bar_visible=true
+        touch "$AUTO_FILE"
 
-        sleep "$POLL_DELAY"
-    done
-}
+elif (( tiled==0 || tiled>=2 || (tiled==1 && Y<=20) )); then
+        ! $bar_visible 
+        pkill -SIGUSR2 waybar
+        bar_visible=true
+        touch "$AUTO_FILE"
+
+elif (( tiled==1 && Y>130 )); then
+        $bar_visible 
+	pkill -SIGUSR1 waybar
+        bar_visible=false
+	rm -f "$AUTO_FILE"          
+fi
+	sleep "$POLL_DELAY"
+done }
 
 # [ TOGGLE WAYBAR ]
 
-toggle_mode() {
-    if [ -f "$STATE_FILE" ]; then
+toggle_mode() { if [ -f "$STATE_FILE" ]; then
         rm "$STATE_FILE"
         tiled=$(get_tiled_on_active_ws)
-        if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
-            pkill -SIGUSR2 waybar
-        else
-            pkill -SIGUSR1 waybar
-            sleep 0.5
-        fi
+
+if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]; then
+        pkill -SIGUSR2 waybar
+else
+        pkill -SIGUSR1 waybar
+        sleep 0.5
+fi
+
         nohup "$0" >/dev/null 2>&1 &
-    else
+else
         touch "$STATE_FILE"
         pkill -f "WaybarAutoHide$"
         pkill -SIGUSR2 waybar
-    fi
-}
+fi }
 
 # [ WAYBAR MODULE & TOGGLE ]
 
 module_mode() {
-    if [ -f "$STATE_FILE" ]; then
-        printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
-    else
-        printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
-    fi
-}
+if [ -f "$STATE_FILE" ]
+	then printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
+	else printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
+fi }
 
 case "$1" in
     toggle) toggle_mode ;;
     module) module_mode ;;
-    *) [ -f "$STATE_FILE" ] || autohide_mode ;;
-esac
+    *) [ -f "$STATE_FILE" ] || autohide_mode ;; esac
