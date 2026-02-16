@@ -16,20 +16,20 @@
 	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
 /* AUTOHIDE - STARTUP */
 	"custom/autohide": {
-		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
-		"interval": "once"
+		"exec": "WaybarAutoHide",
+		"interval": "once",
 	},
 /* POWER MENU - EXPANDER */
         "custom/expand": {
             	"format": "  ",
-		"exec": "~/.config/waybar/Modules/Gamma",
-		"interval": 1,
+		"exec": "Gamma",
+		"interval": "once",
 		"return-type": "json",
             	"tooltip": true,
 		"on-click-right": "hyprctl hyprsunset gamma 100",
 		"on-click-middle": "",
-		"on-scroll-up": "~/.config/waybar/Modules/Gamma up",
-		"on-scroll-down": "~/.config/waybar/Modules/Gamma down"
+		"on-scroll-up": "Gamma up",
+		"on-scroll-down": "Gamma down"
         },
         "group/expand": {
             	"orientation": "horizontal",
@@ -61,12 +61,12 @@
 	},
 /* STAT MODULES */
         "cpu": {
-		"interval": 3,
+		"interval": 5,
 		"format": "[  {usage}% ]",
         	"tooltip": false 
         },
         "temperature": {
-		"interval": 3,
+		"interval": 5,
 		"critical-threshold": 80,
 		"format": "[  {temperatureC}°C ]",
 		"tooltip": false,
@@ -74,27 +74,27 @@
 		"hwmon-path": ["/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input"]
         },
         "memory": {
-	    	"interval": 3,
+	    	"interval": 5,
             	"format": "[  {used:1.0f}GiB ]",
 		"tooltip": false
         },
 /* WAYBAR LOCK */
 	"custom/togglewaybar": {
-   		"exec": "~/.config/waybar/Modules/WaybarAutoHide module",
-    		"interval": 1,
+   		"exec": "WaybarAutoHide module",
+		"interval": "once",
     		"format": "[ {} ]",
     		"return-type": "json",
-    		"on-click": "~/.config/waybar/Modules/WaybarAutoHide toggle"
+    		"on-click": "WaybarAutoHide toggle"
 	},
 /* SYSTEM UPDATES MODULE */
 	"custom/updates": {
-    		"exec": "~/.config/waybar/Modules/Update module",
+    		"exec": "Update module",
     		"format": "{}",
     		"return-type": "json",
     		"interval": 300,
     		"tooltip": true,
-    		"on-click": "kitty --class Update ~/.config/waybar/Modules/Update",
-			"on-click-right": "kitty --class Update ~/.config/waybar/Modules/ClearCache"
+    		"on-click": "kitty --class Update Update",
+		"on-click-right": "kitty --class Update ClearCache"
 	},
 /* AUDIO MODULE */
 	"wireplumber": {
@@ -140,17 +140,17 @@
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
- 		"exec": "~/.config/waybar/Modules/ToggleScreenshare module",
-  		"on-click": "~/.config/waybar/Modules/ToggleScreenShare",
-  		"interval": 1,
+ 		"exec": "ToggleScreenShare module",
+  		"on-click": "ToggleScreenShare",
+    		"interval": "once",
    		"format": "[ {} ]",
 		"return-type": "json"
 	},
 /* BLUETOOTH & NETWORK MODULES */
 	"bluetooth": {
-		"interval": 3,
+		"interval": 300,
 		"on-click": "blueman-manager",
-		"on-click-right": "~/.config/waybar/Modules/ToggleBluetooth",
+		"on-click-right": "ToggleBluetooth",
 		"format": "[  ]",
 		"format-off": "[ 󰂲 ]",
 		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
@@ -195,7 +195,7 @@
 	},
 /* LOCKSCREEN MODULE */
 	"custom/lock": {
-		"on-click": "~/.config/waybar/Modules/LockScreen",
+		"on-click": "LockScreen",
 		"format": "  ",
 		"tooltip-format": "[ LOCK SESSION ]"
 	}
