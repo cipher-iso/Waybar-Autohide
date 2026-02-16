@@ -16,33 +16,37 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 
 /* WORKSPACES */
 #workspaces {
-	box-shadow: 0px 0px 4px rgba(0, 255, 64, 0.5);
-	background: linear-gradient(135deg, @grad1, @grad2);
-	border-radius: 30px;
 	margin: 8px;
 	margin-left: 20px;
-	margin-right: 20px;}
+	margin-right: 20px;
+	border-radius: 16px;
+	box-shadow: 0px 0px 4px rgba(0, 255, 64, 0.5);
+	background: linear-gradient(135deg, @grad1, @grad2); }
 
 #workspaces button {
     	color: @bg;
-    	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2), background 0s ease, color 0.1s ease;
     	padding: 0 10px;
-	border-radius: 30px;
-	margin: 4px 4px; }
-#workspaces button.empty { color: @accent3; }
+	margin: 4px 4px;
+	border-radius: 12px;
+	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2),
+	box-shadow 0s ease, background 0s ease, color 0.1s ease; }
 
+#workspaces button.empty { color: @accent3; }
 #workspaces button.focused,
 #workspaces button.active {
-	background: @bg;
-    	color: @fg;
+	color: @fg2;
     	padding: 0 10px;
-    	min-width: 50px; }
+    	min-width: 50px;
+	background: @bg;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+	text-shadow: 0px 0px 4px rgba(0, 255, 64, 0.5); }
 
 #workspaces button:hover {
-	text-shadow: 0px 0px 4px rgba(235, 250, 250, 0.5);
 	color: @fg2;
+	min-width: 60px;
 	background-color: @bg;
-	min-width: 60px; }
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+	text-shadow: 0px 0px 4px rgba(235, 250, 250, 0.5); }
 
 /* PRIMARY COLOR & INTERACTIVE HOVER */
 #custom-expand,
