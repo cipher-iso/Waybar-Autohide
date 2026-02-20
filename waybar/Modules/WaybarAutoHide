@@ -2,76 +2,155 @@
 
 STATE_FILE="$HOME/.config/waybar/Modules/.Locked"
 AUTO_FILE="$HOME/.config/waybar/Modules/.Visible"
+CONFIG_FILE="$HOME/.config/waybar/config.jsonc"
 POLL_DELAY=0.10
 
 # [ GREP FUNCTIONS ]
 
-get_cursor_y() { hyprctl cursorpos | cut -d ',' -f 2- ;}
+get_cursor_pos() { hyprctl cursorpos; }
+
+get_resolution() {
+    hyprctl -j monitors | jq -r '.[] | select(.focused==true) | "\(.width)x\(.height)"'
+}
+
+get_bar_position() {
+    grep -m1 '"position"' "$CONFIG_FILE" | sed -E 's/.*"position":[[:space:]]*"([^"]+)".*/\1/'
+}
 
 get_tiled_on_active_ws() {
-	local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}')
-	hyprctl clients | awk -v ws="$ws" '
-          /^Window /{cur_ws="";floating=""}
-          /^\s*workspace:/{cur_ws=$2}
-          /^\s*floating:/{floating=$2}
-          cur_ws==ws && floating==0 {count++;cur_ws=""}
-  	  END{print count+0}' ;}
+    local ws=$(hyprctl activeworkspace | awk '/workspace ID/ {print $3}')
+    hyprctl clients | awk -v ws="$ws" '
+        /^Window /{cur_ws="";floating=""}
+        /^\s*workspace:/{cur_ws=$2}
+        /^\s*floating:/{floating=$2}
+        cur_ws==ws && floating==0 {count++;cur_ws=""}
+        END{print count+0}'
+}
 
 focused_special_ws() {
-	hyprctl monitors | awk '
-          BEGIN {focused=0; special=-1}
-          /^Monitor / {focused=0; special=-1}
-          /focused: yes/ {focused=1}
-          /special workspace:/ {special=$3}
-          END {exit !(focused==1 && special != -1 && special != 0)}' ;}
+    hyprctl monitors | awk '
+        BEGIN {focused=0; special=-1}
+        /^Monitor / {focused=0; special=-1}
+        /focused: yes/ {focused=1}
+        /special workspace:/ {special=$3}
+        END {exit !(focused==1 && special != -1 && special != 0)}'
+}
 
 # [ AUTO-HIDE WAYBAR ]
 
 autohide_mode() {
 pgrep -f "WaybarAutoHide$" | grep -v $$ >/dev/null && exit
 bar_visible=false
+
 while true; do
-  Y=$(get_cursor_y)
-  tiled=$(get_tiled_on_active_ws)
-  special=$(focused_special_ws && echo 1 || echo 0)
 
-if (( special || tiled==0 || tiled>=2 || (tiled==1 && Y<=20) )); then
-          ! $bar_visible
-          pkill -SIGUSR2 waybar
-          bar_visible=true
-          touch "$AUTO_FILE"
+    CURSOR=$(get_cursor_pos)
+    X=$(echo "$CURSOR" | cut -d',' -f1)
+    Y=$(echo "$CURSOR" | cut -d',' -f2)
 
-elif (( tiled==1 && Y>130 )); then
-          $bar_visible
-          pkill -SIGUSR1 waybar
-          bar_visible=false
-          rm -f "$AUTO_FILE"
-fi;	sleep "$POLL_DELAY"
-done }
+    RES=$(get_resolution)
+    WIDTH=${RES%x*}
+    HEIGHT=${RES#*x}
+
+    POSITION=$(get_bar_position)
+
+    tiled=$(get_tiled_on_active_ws)
+    special=$(focused_special_ws && echo 1 || echo 0)
+
+    case "$POSITION" in
+
+        top)
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.0138}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.085}')
+
+            SHOW_CONDITION=$(( Y <= EDGE1 ))
+            HIDE_CONDITION=$(( Y > EDGE2 ))
+            ;;
+
+        bottom)
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.949}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.992}')
+
+            SHOW_CONDITION=$(( Y >= EDGE2 ))
+            HIDE_CONDITION=$(( Y < EDGE1 ))
+            ;;
+
+        left)
+            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.0138}')
+            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.085}')
+
+            SHOW_CONDITION=$(( X <= EDGE1 ))
+            HIDE_CONDITION=$(( X > EDGE2 ))
+            ;;
+
+        right)
+            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.949}')
+            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.992}')
+
+            SHOW_CONDITION=$(( X >= EDGE2 ))
+            HIDE_CONDITION=$(( X < EDGE1 ))
+            ;;
+
+        *)
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.0138}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.085}')
+
+            SHOW_CONDITION=$(( Y <= EDGE1 ))
+            HIDE_CONDITION=$(( Y > EDGE2 ))
+            ;;
+    esac
+
+    if (( special || tiled==0 || tiled>=2 || (tiled==1 && SHOW_CONDITION) )); then
+        ! $bar_visible
+        pkill -SIGUSR2 waybar
+        bar_visible=true
+        touch "$AUTO_FILE"
+
+    elif (( tiled==1 && HIDE_CONDITION )); then
+        $bar_visible
+        pkill -SIGUSR1 waybar
+        bar_visible=false
+        rm -f "$AUTO_FILE"
+    fi
+
+    sleep "$POLL_DELAY"
+done
+}
 
 # [ TOGGLE WAYBAR ]
 
-toggle_mode() { if [ -f "$STATE_FILE" ]; then
-  rm "$STATE_FILE"
-  tiled=$(get_tiled_on_active_ws)
-if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]
-then 	pkill -SIGUSR2 waybar
-else 	pkill -SIGUSR1 waybar
-	sleep 0.5
-fi; 	nohup "$0" >/dev/null 2>&1 &
-else	touch "$STATE_FILE"
-        pkill -f "WaybarAutoHide$"
+toggle_mode() {
+if [ -f "$STATE_FILE" ]; then
+    rm "$STATE_FILE"
+    tiled=$(get_tiled_on_active_ws)
+
+    if focused_special_ws || [ "$tiled" -eq 0 ] || [ "$tiled" -ge 2 ]
+    then
         pkill -SIGUSR2 waybar
-fi }
+    else
+        pkill -SIGUSR1 waybar
+        sleep 0.5
+    fi
+
+    nohup "$0" >/dev/null 2>&1 &
+else
+    touch "$STATE_FILE"
+    pkill -f "WaybarAutoHide$"
+    pkill -SIGUSR2 waybar
+fi
+}
 
 # [ WAYBAR MODULE & TOGGLE ]
 
 module_mode() {
 if [ -f "$STATE_FILE" ]
-	then printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
-	else printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
-fi }
+    then printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
+    else printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
+fi
+}
+
 case "$1" in
     toggle) toggle_mode ;;
     module) module_mode ;;
-    *) [ -f "$STATE_FILE" ] || autohide_mode ;; esac
+    *) [ -f "$STATE_FILE" ] || autohide_mode ;;
+esac
