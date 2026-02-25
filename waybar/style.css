@@ -5,50 +5,49 @@
 * {   	all:unset;
 	font-family: JetBrainsMono Nerd Font Propo;
     	font-weight: 700;
-    	font-size: 22px; }
+    	font-size: 22px }
 
 /* THE ACTUAL BAR */
-window#waybar>box { background-color: @bg; padding-left: 10px; padding-right: 10px; }
+window#waybar>box { background-color: @bg; padding-left: 0.5em; padding-right: 0.5em }
 
 /* TOOLTIPS */
-tooltip 	{ background-color: @bg; border-radius: 0px 0px 0px 0px; }
-tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
+tooltip label 	{ color: @fg; margin: 0.5em; font-size: 0.9em; font-weight: 700 }
+tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
 
 /* WORKSPACES */
 #workspaces {
-	margin: 8px;
-	margin-left: 20px;
-	margin-right: 20px;
-	border-radius: 16px;
-	box-shadow: 0px 0px 6px alpha(@fg, 0.5);
-	background: linear-gradient(135deg, @grad1, @grad2); }
-
+	margin: 0.4em;
+	margin-left: 1em;
+	margin-right: 1em;
+	border-radius: 0.5em;
+	background: linear-gradient(135deg, @grad2, @grad1, @grad2);
+	box-shadow: 0em 0em 0.25em -0.1em @fg,
+		inset 0em 1em 1em -0.25em @grad1,
+		inset 0em -0.5em 0.5em -0.5em @grad2,
+		inset -1em 0em 1em -1em @grad2,
+		inset 1em 0em 1em -1em @grad2 }
 #workspaces button {
     	color: @bg;
-    	padding: 4px 10px;
-	margin: 4px 4px;
-	border-radius: 12px;
+    	padding: 0.1em 0.5em;
+	margin: 0.25em;
+	border-radius: 0.4em;
 	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2),
-	box-shadow 0s ease, background 0s ease, color 0.1s ease; }
-
-#workspaces button.empty { color: alpha(@bg, 0.35); }
+		box-shadow 0s ease,
+	    	background 0s ease,
+	    	color 0.1s ease }
+#workspaces button.empty   { color: alpha(@bg, 0.35) }
 #workspaces button.focused,
-#workspaces button.active {
-	color: @fg2;
-    	padding: 0px 10px;
-    	min-width: 50px;
-	background: @bg;
-	box-shadow: 0px 2px 4px alpha(@bg, 0.8),
-	      inset 0px -2px 4px alpha(@fg2, 0.2);
-	text-shadow: 0px 0px 4px alpha(@fg2, 0.5); }
-
+#workspaces button.active,
 #workspaces button:hover {
-	color: @fg2;
-	min-width: 60px;
-	background-color: @bg;
-	box-shadow: 0px 2px 4px alpha(@bg, 0.8),
-	      inset 0px -2px 4px alpha(@fg2, 0.2);
-	text-shadow: 0px 0px 4px alpha(@fg2, 0.5); }
+    	color: @fg2;
+    	padding: 0em 0.5em;
+    	background: @bg;
+    	box-shadow: 0em 0.1em 0.25em 0.1em alpha(@bg, 0.5);
+    	text-shadow: 0em 0em 0.25em alpha(@fg2, 0.5) }
+#workspaces button.focused,
+#workspaces button.active  { min-width: 2.25em }
+#workspaces button:hover   { min-width: 2.75em }
+#workspaces button.special { color: @fg; text-shadow: 0em 0em 0.25em alpha(@fg, 0.5) }
 
 /* PRIMARY COLOR & INTERACTIVE HOVER */
 #custom-expand,
@@ -60,16 +59,14 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 #custom-screenshare:hover,
 #custom-togglewaybar:hover,
 #pulseaudio:hover,
-#wireplumber:hover	{ color: @fg; 
-			text-shadow: 0px 0px 4px alpha(@fg, 0.5)}
+#wireplumber:hover	{ color: @fg; text-shadow: 0em 0em 0.2em alpha(@fg, 0.5) }
 
 /* SECONDARY COLOR & INTERACTIVE HOVER */
 #custom-power:hover,
 #custom-reboot:hover,
 #custom-logout:hover,
 #custom-expand:hover,
-#custom-lock:hover	{ color: @fg2;
-			text-shadow: 0px 0px 4px alpha(@fg2, 0.5)}
+#custom-lock:hover	{ color: @fg2; text-shadow: 0em 0em 0.2em alpha(@fg2, 0.5) }
 
 /* DARK ACCENTS & NON-INTERACTIVE HOVER */
 #custom-power,
@@ -78,7 +75,7 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 #clock:hover,
 #cpu:hover,
 #memory:hover,
-#temperature:hover	{ color: @accent2; }
+#temperature:hover	{ color: @accent2 }
 
 /* LIGHT ACCENTS & MODULES */
 #clock,
@@ -92,8 +89,9 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 #custom-screenshare,
 #custom-togglewaybar,
 #pulseaudio,
-#wireplumber		{ color: @accent1; padding: 5px; transition: color 0.2s ease}
+#wireplumber		{ color: @accent1; padding: 0.2em; transition: color 0.2s ease }
 
+/* ANIMATIONS */
 #custom-updates,
 #network,
 #bluetooth,
@@ -106,9 +104,7 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 #custom-reboot,
 #custom-logout,
 #custom-expand,
-#custom-lock
-{ transition: color 0.25s ease, font-size 0.05s ease; font-size: 100% }
-
+#custom-lock		{ transition: color 0.25s ease, font-size 0.05s ease; font-size: 100% }
 #custom-updates:hover,
 #network:hover,
 #bluetooth:hover,
@@ -121,10 +117,5 @@ tooltip label 	{ color: @fg; margin: 10px; font-size: 20px; font-weight: 700; }
 #custom-reboot:hover,
 #custom-logout:hover,
 #custom-expand:hover,
-#custom-lock:hover
-{ font-size: 120% }
-
-#custom-expand { font-size: 110% }
-#custom-expand:hover { font-size: 140% }
-
-*:hover { font-weight: 900; }
+#custom-lock:hover,
+#custom-expand:hover 	{ font-size: 140%; font-weight: 900 }
