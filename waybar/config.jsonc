@@ -16,20 +16,20 @@
 	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
 /* AUTOHIDE - STARTUP */
 	"custom/autohide": {
-		"exec": "WaybarAutoHide",
+		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
 		"interval": "once",
 	},
 /* POWER MENU - EXPANDER */
         "custom/expand": {
             	"format": "  ",
-		"exec": "Gamma",
+		"exec": "~/.config/waybar/Modules/Gamma",
 		"interval": "once",
 		"return-type": "json",
             	"tooltip": true,
 		"on-click-right": "hyprctl hyprsunset gamma 100",
 		"on-click-middle": "",
-		"on-scroll-up": "Gamma up",
-		"on-scroll-down": "Gamma down"
+		"on-scroll-up": "~/.config/waybar/Modules/Gamma up",
+		"on-scroll-down": "~/.config/waybar/Modules/Gamma down"
         },
         "group/expand": {
             	"orientation": "horizontal",
@@ -80,21 +80,21 @@
         },
 /* WAYBAR LOCK */
 	"custom/togglewaybar": {
-   		"exec": "WaybarAutoHide module",
+   		"exec": "~/.config/waybar/Modules/WaybarAutoHide module",
 		"interval": "once",
     		"format": "[ {} ]",
     		"return-type": "json",
-    		"on-click": "WaybarAutoHide toggle"
+    		"on-click": "~/.config/waybar/Modules/WaybarAutoHide toggle"
 	},
 /* SYSTEM UPDATES MODULE */
 	"custom/updates": {
-    		"exec": "Update module",
+    		"exec": "~/.config/waybar/Modules/Update module",
     		"format": "{}",
     		"return-type": "json",
     		"interval": 300,
     		"tooltip": true,
-    		"on-click": "kitty --class Update Update",
-		"on-click-right": "kitty --class Update ClearCache"
+    		"on-click": "kitty --class ~/.config/waybar/Modules/Update Update",
+		"on-click-right": "kitty --class ~/.config/waybar/Modules/Update ClearCache"
 	},
 /* AUDIO MODULE */
 	"wireplumber": {
@@ -140,8 +140,8 @@
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
- 		"exec": "ToggleScreenShare module",
-  		"on-click": "ToggleScreenShare",
+ 		"exec": "~/.config/waybar/Modules/ToggleScreenShare module",
+  		"on-click": "~/.config/waybar/Modules/ToggleScreenShare",
     		"interval": "once",
    		"format": "[ {} ]",
 		"return-type": "json"
@@ -150,7 +150,7 @@
 	"bluetooth": {
 		"interval": 300,
 		"on-click": "blueman-manager",
-		"on-click-right": "ToggleBluetooth",
+		"on-click-right": "~/.config/waybar/Modules/ToggleBluetooth",
 		"format": "[  ]",
 		"format-off": "[ 󰂲 ]",
 		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
@@ -195,7 +195,7 @@
 	},
 /* LOCKSCREEN MODULE */
 	"custom/lock": {
-		"on-click": "LockScreen",
+		"on-click": "~/.config/waybar/Modules/LockScreen",
 		"format": "  ",
 		"tooltip-format": "[ LOCK SESSION ]"
 	}
