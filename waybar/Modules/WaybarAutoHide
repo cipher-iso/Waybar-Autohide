@@ -60,40 +60,40 @@ while true; do
     case "$POSITION" in
 
         top)
-            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.0138}')
-            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.085}')
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.01}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.1}')
 
             SHOW_CONDITION=$(( Y <= EDGE1 ))
             HIDE_CONDITION=$(( Y > EDGE2 ))
             ;;
 
         bottom)
-            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.949}')
-            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.992}')
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.9}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.99}')
 
             SHOW_CONDITION=$(( Y >= EDGE2 ))
             HIDE_CONDITION=$(( Y < EDGE1 ))
             ;;
 
         left)
-            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.0138}')
-            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.085}')
+            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.01}')
+            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.1}')
 
             SHOW_CONDITION=$(( X <= EDGE1 ))
             HIDE_CONDITION=$(( X > EDGE2 ))
             ;;
 
         right)
-            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.949}')
-            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.992}')
+            EDGE1=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.9}')
+            EDGE2=$(awk -v w="$WIDTH" 'BEGIN {printf "%d", w * 0.99}')
 
             SHOW_CONDITION=$(( X >= EDGE2 ))
             HIDE_CONDITION=$(( X < EDGE1 ))
             ;;
 
         *)
-            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.0138}')
-            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.085}')
+            EDGE1=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.01}')
+            EDGE2=$(awk -v h="$HEIGHT" 'BEGIN {printf "%d", h * 0.1}')
 
             SHOW_CONDITION=$(( Y <= EDGE1 ))
             HIDE_CONDITION=$(( Y > EDGE2 ))
@@ -144,8 +144,8 @@ fi
 
 module_mode() {
 if [ -f "$STATE_FILE" ]
-    then printf '{"text":"","tooltip":"[ WAYBAR - LOCKED ]"}\n'
-    else printf '{"text":"","tooltip":"[ WAYBAR - UNLOCKED ]"}\n'
+    then printf '{"text":"","tooltip":"[ TASKBAR LOCKED ]"}\n'
+    else printf '{"text":"","tooltip":"[ TASKBAR UNLOCKED ]"}\n'
 fi
 }
 
