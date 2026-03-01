@@ -31,10 +31,15 @@ tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
     	padding: 0.1em 0.5em;
 	margin: 0.25em;
 	border-radius: 0.4em;
-	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2),
-		    box-shadow 0s ease, background 0s ease }
+	transition:
+        	color 0.2s ease,
+        	box-shadow 0.2s ease,
+        	background 0.2s ease;
+    	transition-duration: 0.25s;
+    	transition-timing-function: cubic-bezier(0.25, 1, 0.25, 2);
+	transition-property: min-width, color, box-shadow, background }
 #workspaces button.focused,
-#workspaces button.active  { min-width: 2.25em }
+#workspaces button.active  { min-width: 2em }
 #workspaces button:hover   { min-width: 2.75em }
 #workspaces button.empty   { color: alpha(@bg, 0.35) }
 #workspaces button.focused,
