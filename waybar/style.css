@@ -22,7 +22,7 @@ tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
 	border-radius: 0.5em;
 	background: linear-gradient(135deg, @grad2, @grad1, @grad2);
 	box-shadow: 0em 0em 0.25em -0.1em @fg,
-		inset 0em 1em 1em -0.25em @grad1,
+		inset 0em 1em 1em -0.25em alpha(@grad1, 0.75),
 		inset 0em -0.5em 0.5em -0.5em @grad2,
 		inset -1em 0em 1em -1em @grad2,
 		inset 1em 0em 1em -1em @grad2 }
@@ -32,22 +32,27 @@ tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
 	margin: 0.25em;
 	border-radius: 0.4em;
 	transition: 0.2s cubic-bezier(0.8, 1, 0.2, 2),
-		box-shadow 0s ease,
-	    	background 0s ease,
-	    	color 0.1s ease }
-#workspaces button.empty   { color: alpha(@bg, 0.35) }
-#workspaces button.focused,
-#workspaces button.active,
-#workspaces button:hover {
-    	color: @fg2;
-    	padding: 0em 0.5em;
-    	background: @bg;
-    	box-shadow: 0em 0.1em 0.25em 0.1em alpha(@bg, 0.5);
-    	text-shadow: 0em 0em 0.25em alpha(@fg2, 0.5) }
+		    box-shadow 0s ease, background 0s ease }
 #workspaces button.focused,
 #workspaces button.active  { min-width: 2.25em }
 #workspaces button:hover   { min-width: 2.75em }
-#workspaces button.special { color: @fg; text-shadow: 0em 0em 0.25em alpha(@fg, 0.5) }
+#workspaces button.empty   { color: alpha(@bg, 0.35) }
+#workspaces button.focused,
+#workspaces button.active,
+#workspaces button.special:hover {
+    	color: @fg2;
+    	padding: 0em 0.5em;
+ 	box-shadow: inset 0 0 4 4px alpha(@bg, 0.5);
+    	text-shadow: 0em 0em 0.25em alpha(@fg2, 0.5);
+	background: @bg, linear-gradient(to bottom,
+      		    alpha(@fg2, 0.0), alpha(@fg2, 0.1));}
+#workspaces button.special,
+#workspaces button:hover{ 
+	color: @fg;
+	box-shadow: inset 0 0 4 4px alpha(@bg, 0.5);
+	text-shadow: 0em 0em 0.25em alpha(@fg, 0.5);
+    	background: @bg, linear-gradient(to bottom,
+		    alpha(@grad2, 0.0), alpha(@grad1, 0.15)) }
 
 /* PRIMARY COLOR & INTERACTIVE HOVER */
 #custom-expand,
@@ -104,7 +109,7 @@ tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
 #custom-reboot,
 #custom-logout,
 #custom-expand,
-#custom-lock		{ transition: color 0.25s ease, font-size 0.05s ease; font-size: 100% }
+#custom-lock		{ transition: color 0.25s ease, font-size 0.1s ease; font-size: 100% }
 #custom-updates:hover,
 #network:hover,
 #bluetooth:hover,
@@ -119,3 +124,4 @@ tooltip 	{ background-color: @bg; border-radius: 0em 0em 0em 0em }
 #custom-expand:hover,
 #custom-lock:hover,
 #custom-expand:hover 	{ font-size: 140%; font-weight: 900 }
+#workspaces .workspace-label { font-weight: 900; }
