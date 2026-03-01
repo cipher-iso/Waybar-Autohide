@@ -11,9 +11,10 @@
 	"margin-left": 0,
 	"margin-right": 0,
 	"margin-top": 0,
-	"modules-left": ["custom/autohide","group/expand","cpu","temperature","memory","custom/togglewaybar","custom/updates"],
-	"modules-center": ["wireplumber","hyprland/workspaces","pulseaudio#input"],
-	"modules-right": ["idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock"],
+	"modules-left": [ "custom/autohide","group/expand","cpu",
+			"temperature","memory","custom/togglewaybar","custom/updates" ],
+	"modules-center": [ "wireplumber","hyprland/workspaces","pulseaudio#input" ],
+	"modules-right": [ "idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock" ],
 /* AUTOHIDE - STARTUP */
 	"custom/autohide": {
 		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
@@ -21,7 +22,7 @@
 	},
 /* POWER MENU - EXPANDER */
         "custom/expand": {
-            	"format": "  ",
+            	"format": "  ",
 		"exec": "~/.config/waybar/Modules/Gamma",
 		"interval": "once",
 		"return-type": "json",
@@ -93,8 +94,8 @@
     		"return-type": "json",
     		"interval": 300,
     		"tooltip": true,
-    		"on-click": "kitty --class ~/.config/waybar/Modules/Update Update",
-		"on-click-right": "kitty --class ~/.config/waybar/Modules/Update ClearCache"
+    		"on-click": "kitty --class Update ~/.config/waybar/Modules/Update",
+		"on-click-right": "kitty --class Update ~/.config/waybar/Modules/ClearCache"
 	},
 /* AUDIO MODULE */
 	"wireplumber": {
@@ -106,16 +107,21 @@
 		"format": "{icon}",
 		"format-icons": ["","",""],
     		"format-muted": "",
-		"tooltip-format": "[ VOLUME {volume}% ]" 
+		"tooltip-format": "[ OUTPUT {volume}% ]" 
 	},
 /* HYPRLAND WORKSPACES */
 	"hyprland/workspaces": {
+		"cursor": true,
 		"show-special": true,
 		"special-visible-only": true,
 		"on-scroll-up": "hyprctl dispatch workspace e+1",
 		"on-scroll-down": "hyprctl dispatch workspace e-1",
 		"format":"{icon}",
-		"format-icons": {"1": "᮰","2": "᮱","3": "᮲","4": "᮳","5": "᮴","6": "᮵","7": "᮶","8": "᮷","9": "᮸","magic": "","media": ""}
+		"format-icons": {
+			"1": "᮰", "2": "᮱", "3": "᮲",
+			"4": "᮳", "5": "᮴", "6": "᮵",
+			"7": "᮶", "8": "᮷", "9": "᮸",
+			"active": "󰫢", "magic": "","media": ""}
 	},
 /* MICROPHONE MODULE */
 	"pulseaudio#input": {
@@ -126,7 +132,7 @@
     		"format": "{format_source}",
     		"format-source": "",
     		"format-source-muted": "",
-		"tooltip-format": "[ VOLUME {source_volume}% ]"
+		"tooltip-format": "[ INPUT {source_volume}% ]"
 	},
 /* IDLE INHIBITOR */
 	"idle_inhibitor": {
@@ -135,8 +141,8 @@
 			"activated": "[ 󰚭 ]",
 			"deactivated": "[ 󰞌 ]",
 		},
-		"tooltip-format-activated": "[ IDLE-INHIBITOR ACTIVE ]",
-		"tooltip-format-deactivated": "[ IDLE-INHIBITOR INACTIVE ]"
+		"tooltip-format-activated": "[ INHIBITOR ACTIVE ]",
+		"tooltip-format-deactivated": "[ INHIBITOR INACTIVE ]"
 	},
 /* SCREENSHARE MODULE */
 	"custom/screenshare": {
@@ -153,7 +159,7 @@
 		"on-click-right": "~/.config/waybar/Modules/ToggleBluetooth",
 		"format": "[  ]",
 		"format-off": "[ 󰂲 ]",
-		"tooltip-format": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED ]",
+		"tooltip-format": "[ {controller_alias} ]\t[ {num_connections} CONNECTED ]",
 		"tooltip-format-connected": "[ {controller_alias} ]\t[ {controller_address} ]\n\n[ {num_connections} CONNECTED\n\n{device_enumerate} ]",
 		"tooltip-format-enumerate-connected": "[ {device_alias}\t{device_address} ]",
 		"tooltip-format-enumerate-connected-battery": "[ {device_alias}\t{device_address}\t{device_battery_percentage}% ]"
@@ -169,7 +175,7 @@
 		"format-disconuected": "[ 󰤭 ]",
 		"format-disabled": "[ 󰤭 ]",
 		"tooltip-format": "[ {ifname} ]",
-		"tooltip-format-wifi": "[ {essid} ] - [{signalStrength}%]",
+		"tooltip-format-wifi": "[ {essid} - {signalStrength}% ]",
 		"tooltip-format-ethernet": "[ {ifname}  ]",
 		"tooltip-format-disconnected": "[ OFFLINE ]",
 		"tooltip-format-disabled": "[ OFFLINE ]",
