@@ -55,7 +55,7 @@
 	},
 	"custom/logout": {
 		"format": "   ",
-		"on-click": "hyprctl dispatch exit",
+		"hyprctl dispatch 'hl.dsp.exit()'",
 		"tooltip-format": "[ END SESSION ]",
 		"on-scroll-up": "",
 		"on-scroll-down": ""	
@@ -114,8 +114,8 @@
 		"cursor": true,
 		"show-special": true,
 		"special-visible-only": true,
-		"on-scroll-up": "hyprctl dispatch workspace e+1",
-		"on-scroll-down": "hyprctl dispatch workspace e-1",
+		"on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\" })'",
+		"on-scroll-down": ""hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\" })'",
 		"format":"{icon}",
 		"format-icons": {
 			"1": "᮰", "2": "᮱", "3": "᮲",
@@ -126,7 +126,7 @@
 /* MICROPHONE MODULE */
 	"pulseaudio#input": {
 		"on-click": "swayosd-client --input-volume mute-toggle",
-		"on-click-right": "hyprctl dispatch togglespecialworkspace media",
+		"on-click-right": "hyprctl dispatch 'hl.dsp.workspace.toggle_special(\"media\")'",
 		"on-scroll-up": "swayosd-client --input-volume 5",
 		"on-scroll-down": "swayosd-client --input-volume -5",
     		"format": "{format_source}",
