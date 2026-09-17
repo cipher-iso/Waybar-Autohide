@@ -20,7 +20,7 @@ In Your Terminal:<br>
 <br>
 
 ### **🧩 | STEP 2: [ COPY MODULES ]**
-Copy the [WaybarAutoHide Module](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/Modules/WaybarAutoHide) into your `~/.config/waybar/Modules`<br>
+Copy the [Waybar Module](https://github.com/cipher-iso/Waybar-Autohide/blob/main/waybar/Modules/Waybar) into your `~/.config/waybar/Modules`<br>
 
 <br>
 
@@ -39,13 +39,13 @@ Add the `"custom/autohide"` module to your `config.jsonc`:<br>
 Customize the module as follows:
 
 	"custom/autohide": {
-	"exec": "~/.config/waybar/Modules/WaybarAutoHide",
+	"exec": "~/.config/waybar/Modules/Waybar AutoHide",
 	"interval": "once",
 	},
 
-Similarly, if you would like it separate from Waybar, you may use an `exec-once` in your Hyprland.conf:
+Similarly, if you would like it separate from Waybar, you may use an `exec_cmd` in your Hyprland.lua:
 
-    exec-once: ~/.config/waybar/Modules/WaybarAutoHide
+    hl.exec_cmd("~/.config/waybar/Modules/Waybar AutoHide")
 
 <br>
 
@@ -54,11 +54,11 @@ Create a *`togglewaybar`* module in `waybar/config.jsonc`:<br>
 *[ This will allow you to disable AutoHide when not in-use ]*<br>
 
     "custom/togglwaybar": {
-      "exec": "~/.config/waybar/Modules/WaybarAutoHide module",
+      "exec": "~/.config/waybar/Modules/Waybar Module",
       "interval": 1,
       "format": "{}",
       "return-type": "json",
-      "on-click": "~/.config/waybar/Modules/WaybarAutoHide toggle"
+      "on-click": "~/.config/waybar/Modules/Waybar Toggle"
     }
 
 Add this module to your `modules-left`/`center`/`right`,<br>
