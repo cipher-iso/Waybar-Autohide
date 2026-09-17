@@ -17,7 +17,7 @@
 	"modules-right": [ "idle_inhibitor","custom/screenshare","bluetooth","network","clock","custom/lock" ],
 /* AUTOHIDE - STARTUP */
 	"custom/autohide": {
-		"exec": "~/.config/waybar/Modules/WaybarAutoHide",
+		"exec": "~/.config/waybar/Modules/Waybar AutoHide",
 		"interval": "once",
 	},
 /* POWER MENU - EXPANDER */
